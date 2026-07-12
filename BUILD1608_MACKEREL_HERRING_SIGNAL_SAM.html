@@ -1,0 +1,3138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Hidden Lagoon - BUILD1603_PASS_G3 CONFIRMED PATHS</title>
+<style>
+/* =====================================================================
+   BUILD1500 MASTER STYLESHEET
+   One rule per element. Every selector below appears EXACTLY ONCE in
+   this file. If you need to change how something looks, there is only
+   one place to look.
+   ===================================================================== */
+
+/* ---------- base / layout ---------- */
+html,body{overflow-x:hidden}
+body{
+  margin:0;font-family:Arial;color:#fff;min-height:100vh;
+  background:linear-gradient(180deg,#8bb7a2 0%,#5b8f8d 18%,#2e6f78 45%,#275a63 72%,#183b47 100%);
+  background-size:100% 200%;
+  animation:waterMove 18s ease-in-out infinite;
+  overflow-y:auto;
+  padding-bottom:66px; /* room for fixed bottom nav */
+}
+@keyframes waterMove{0%{background-position:0 0}50%{background-position:0 100%}100%{background-position:0 0}}
+
+button{background:linear-gradient(180deg,#f0c94d,#d89d2a);color:#000;border:none;border-radius:18px;padding:12px;font-weight:700;box-shadow:0 4px 10px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.55);transition:.3s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.4),0 0 18px rgba(255,212,0,.45),inset 0 1px 0 rgba(255,255,255,.6)}
+button:active{transform:translateY(1px);box-shadow:0 2px 6px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+
+/* ---------- bottom navigation ---------- */
+nav{
+  display:flex;position:fixed;left:0;right:0;bottom:0;background:#111;z-index:100;
+  box-shadow:0 -4px 14px rgba(0,0,0,.4);
+}
+nav button{flex:1;padding:10px 4px;border:0;border-radius:0;background:#111;color:#ffd400;cursor:pointer;font-size:11px;font-weight:700;box-shadow:none;transition:.15s}
+nav button:hover{background:#222;transform:none;box-shadow:none}
+nav button.active{color:#fff;background:#222}
+
+/* ---------- tabs ---------- */
+.tab{display:none;padding:12px 12px 24px;max-width:640px;margin:0 auto}
+.tab.active{display:block}
+.tab.active .card,.tab.active .selfieCamWrap,.tab.active .heroCard{animation:cardEnter .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cardEnter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- home world (single toggle for every "living" object) ---------- */
+#homeWorld.hlHidden{display:none}
+
+/* ---------- generic card ---------- */
+.card{background:rgba(20,54,92,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px;margin:8px 0;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:.35s cubic-bezier(.2,.8,.2,1)}
+.card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 10px 24px rgba(0,0,0,.3),0 0 22px rgba(120,200,255,.18)}
+
+/* ---------- HOME: hero ---------- */
+.heroCard{background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.35));border-radius:22px;padding:10px;box-shadow:0 12px 35px rgba(0,0,0,.5);position:relative;overflow:hidden;margin-bottom:10px}
+.heroImg{width:100%;height:430px;object-fit:cover;object-position:center 20%;border-radius:18px;display:block;background:#0b2038;box-shadow:0 0 20px rgba(0,0,0,.5)}
+.heroOverlay{position:absolute;left:20px;right:20px;bottom:20px;background:rgba(0,0,0,.68);padding:14px;border-radius:20px;backdrop-filter:blur(4px)}
+.heroOverlay .name{font-size:22px;font-weight:900;letter-spacing:1px}
+.heroActions{display:flex;gap:8px;margin-top:10px}
+.heroActions button{padding:9px 6px;font-size:13px}
+.heroActions button{flex:1}
+
+/* ---------- HOME: continue ---------- */
+.continueCard{background:linear-gradient(180deg,rgba(18,61,95,.72),rgba(13,39,64,.72));border:2px solid rgba(255,212,0,.7);position:relative;z-index:3;margin-top:-85px;box-shadow:0 -6px 18px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25)}
+.continueCard h3{margin:0 0 6px}
+.continueCard button{width:100%;margin-top:8px}
+
+
+.continueCard{animation:continueGlow 3.5s ease-in-out infinite}
+@keyframes continueGlow{
+0%,100%{box-shadow:0 -6px 18px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25)}
+50%{box-shadow:0 -6px 18px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25),0 0 22px rgba(255,212,0,.35)}
+}
+
+/* ---------- HOME: quest ---------- */
+.questCard{background:linear-gradient(180deg,rgba(33,77,45,.72),rgba(23,56,31,.72))}
+.questCard .bar{background:#123;border-radius:10px;height:14px;overflow:hidden;margin:8px 0}
+.questCard .barFill{height:100%;background:#ffd400}
+
+
+.heroCard{position:relative}
+.heroSelfieMini{
+position:absolute;
+top:14px;
+right:14px;
+z-index:20;
+}
+.heroSelfieMini .selfieCam{
+width:78px;
+height:78px;
+border:3px solid rgba(255,255,255,.95);
+box-shadow:0 10px 28px rgba(0,0,0,.45);
+}
+
+/* ---------- HOME: selfie cam ---------- */
+.selfieCamWrap{display:flex;justify-content:center;margin:4px 0 14px}
+.selfieCam{position:relative;width:104px;height:104px;border-radius:50%;overflow:hidden;background:#0b2038;box-shadow:0 6px 20px rgba(0,0,0,.4),0 0 0 3px rgba(255,255,255,.25)}
+.selfieCamImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease-in-out}
+.selfieCamImg.active{opacity:1}
+.selfieCamGlow{position:absolute;inset:-10px;border-radius:50%;pointer-events:none;box-shadow:0 0 26px 6px rgba(120,210,255,.55);animation:selfieGlowPulse 3.4s ease-in-out infinite}
+@keyframes selfieGlowPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.95;transform:scale(1.04)}}
+
+/* ---------- HOME: scanner ---------- */
+.scannerCard{padding:10px;background:linear-gradient(180deg,#2b6f72,#214f5d);border:3px solid #e6b74b}
+.scannerCard button{width:100%;margin-top:8px}
+.scannerCard .stats{display:flex;gap:14px;font-size:13px;opacity:.9;margin-top:4px}
+.scannerViz{position:relative;width:78px;height:78px;margin:8px auto 14px;border-radius:50%;background:radial-gradient(circle,#2d7f7a 0%,rgba(0,0,0,0) 72%);box-shadow:0 0 26px rgba(95,200,255,.6),0 0 50px rgba(95,200,255,.25);animation:scannerCoreGlow 2.4s ease-in-out infinite}
+@keyframes scannerCoreGlow{0%,100%{box-shadow:0 0 26px rgba(95,200,255,.6),0 0 50px rgba(95,200,255,.25)}50%{box-shadow:0 0 34px rgba(95,200,255,.85),0 0 64px rgba(95,200,255,.4)}}
+.scannerRing{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,90,70,.75);animation:scannerPulse 2.4s ease-out infinite}
+.scannerRing.r2{animation-delay:.8s}
+.scannerRing.r3{animation-delay:1.6s}
+@keyframes scannerPulse{0%{transform:scale(.3);opacity:1}100%{transform:scale(1.9);opacity:0}}
+.scannerSweep{position:absolute;inset:2px;border-radius:50%;background:conic-gradient(from 0deg,rgba(255,216,74,.95),transparent 45%);animation:scannerSpin 2s linear infinite;mix-blend-mode:screen}
+@keyframes scannerSpin{to{transform:rotate(360deg)}}
+.scannerDot{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:24px;filter:drop-shadow(0 0 8px rgba(140,225,255,.9));animation:scannerDotPulse 2.4s ease-in-out infinite}
+@keyframes scannerDotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+/* ---------- HOME: steve activity ---------- */
+.steveCard{padding:10px;margin-top:16px;background:linear-gradient(180deg,rgba(29,63,89,.72),rgba(11,29,44,.72));border:2px solid rgba(95,200,255,.7)}
+
+/* ---------- HOME: latest discovery ---------- */
+.discoveryCard{padding:10px;background:linear-gradient(180deg,rgba(53,92,45,.72),rgba(79,125,58,.72))}
+.discoveryCard button{width:100%;margin-top:8px}
+
+/* ---------- CATS / characters ---------- */
+.catrow{display:flex;gap:10px;flex-wrap:wrap}
+.cat{flex:1;min-width:150px;background:#0f2844;padding:10px;border-radius:12px;cursor:pointer;transition:all .25s ease}
+.cat:hover{transform:translateY(-4px) scale(1.02)}
+.cat img{width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:6px}
+.sel{outline:3px solid #ffd400;transform:scale(1.05);box-shadow:0 0 20px rgba(255,212,0,.8)}
+
+/* ---------- COLLECTION: album only ---------- */
+#collection{padding-top:0}
+.collectionProgress{text-align:center;font-size:22px;font-weight:900;margin:6px 0 14px}
+.collectionProgress .bar{background:#123;border-radius:10px;height:14px;overflow:hidden;max-width:280px;margin:8px auto 0}
+.collectionProgress .barFill{height:100%;background:#ffd400}
+.albumGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.albumSlot{border-radius:18px;padding:14px 10px;text-align:center;font-weight:800;letter-spacing:.5px;box-shadow:0 8px 20px rgba(0,0,0,.35);display:flex;flex-direction:column;transition:.3s cubic-bezier(.2,.8,.2,1)}
+.albumSlot:hover{transform:translateY(-4px) scale(1.02)}
+.albumSlot.owned{background:linear-gradient(180deg,#12507a,#0a2740);border:3px solid #7ec8ff}
+.albumSlot.locked{background:#0f2033;border:3px solid #274257;color:#7c93a8}
+.albumSlot .albumMedia{width:100%;height:160px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0b2038}
+.albumSlot .albumMedia img{width:100%;height:100%;object-fit:cover;display:block}
+.albumSlot .albumName{font-size:14px;margin:8px 0 0;text-transform:uppercase;min-height:34px;display:flex;align-items:center;justify-content:center;line-height:1.15}
+.albumSlot .albumBoxes{font-size:20px;letter-spacing:4px}
+
+
+.passDGlow{animation:passDGlow 4s ease-in-out infinite}
+@keyframes passDGlow{
+0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0))}
+50%{filter:drop-shadow(0 0 12px rgba(95,200,255,.9))}
+}
+
+
+.missionPulse{animation:missionPulse 2.2s ease-in-out infinite}
+@keyframes missionPulse{50%{transform:scale(1.03);box-shadow:0 0 24px rgba(255,212,0,.45)}}
+
+/* ---------- EXPLORE: posters ---------- */
+#exploreGrid{display:grid;grid-template-columns:1fr;gap:18px;max-width:640px;margin:0 auto}
+.posterCard{background:#102844;border-radius:18px;overflow:hidden;cursor:pointer;transition:.25s;border:2px solid rgba(255,212,0,.25)}
+.posterCard:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 16px 34px rgba(0,0,0,.35)}
+.posterCard img{width:100%;height:220px;object-fit:cover;display:block;background:#345}
+.posterCard .posterInfo{padding:14px}
+.posterCard h2{margin:0 0 10px;font-size:24px}
+.posterCard button{width:100%;font-size:18px;padding:14px}
+
+/* ---------- EXPLORE: area view (full-screen) ---------- */
+#areaView{display:none;position:fixed;inset:0;z-index:2000000;background:#04121f;overflow-y:auto}
+#areaViewBg{min-height:100vh;background-size:cover;background-position:center;display:flex;flex-direction:column;justify-content:flex-end}
+#areaViewOverlay{background:linear-gradient(180deg,rgba(4,18,31,0) 0%,rgba(4,18,31,.75) 35%,rgba(4,18,31,.96) 100%);padding:24px;color:#fff;min-height:60vh;display:flex;flex-direction:column;justify-content:flex-end}
+#areaViewOverlay h1{margin:6px 0;font-size:32px;text-shadow:0 3px 10px rgba(0,0,0,.6)}
+#areaViewOverlay button{font-size:18px;padding:14px 18px}
+#areaViewResult{background:rgba(16,40,68,.9);border:2px solid #ffd400;border-radius:14px;padding:10px 14px;margin:10px 0;min-height:20px}
+#areaNpcList{background:rgba(16,40,68,.75);border-radius:14px;padding:10px 10px 10px 26px;margin:6px 0}
+
+/* ---------- RADIO ---------- */
+.radioBtn{width:100%;margin-top:8px}
+.radioHero{position:relative;overflow:hidden;min-height:260px;display:flex;align-items:flex-end;background-image:url('images/shelter-radio/radio-hero.png');background-size:cover;background-position:center}
+.radioHeroTint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,24,38,.15) 0%,rgba(8,24,38,.75) 100%);border-radius:16px}
+.radioHeroContent{position:relative;z-index:1;padding-top:12px}
+.onAirBadge{position:absolute;top:14px;right:14px;z-index:2;background:rgba(8,24,38,.7);border:1px solid rgba(255,80,80,.6);color:#ff5c5c;font-weight:800;font-size:12px;letter-spacing:1px;padding:6px 10px;border-radius:20px;backdrop-filter:blur(4px);animation:onAirBlink 1.6s ease-in-out infinite}
+@keyframes onAirBlink{0%,100%{opacity:1}50%{opacity:.35}}
+.signalMeter{display:flex;align-items:flex-end;gap:4px;height:22px;margin:2px 0 10px}
+.signalBar{width:6px;border-radius:3px;background:#5fc8ff;box-shadow:0 0 6px rgba(95,200,255,.7);animation:signalBounce 1.2s ease-in-out infinite;transform-origin:bottom}
+.signalBar.b1{height:35%;animation-delay:0s}
+.signalBar.b2{height:60%;animation-delay:.15s}
+.signalBar.b3{height:85%;animation-delay:.3s}
+.signalBar.b4{height:100%;animation-delay:.45s}
+@keyframes signalBounce{0%,100%{opacity:.45;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ---------- toast ---------- */
+#hlToast{
+position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px) scale(.94);
+background:linear-gradient(180deg,#ffd400,#f0b000);
+color:#111;padding:12px 22px;border-radius:14px;
+font-weight:bold;z-index:99999;opacity:0;pointer-events:none;
+transition:.35s cubic-bezier(.2,.8,.2,1);box-shadow:0 8px 20px rgba(0,0,0,.35);white-space:pre-line;text-align:center;
+}
+#hlToast.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
+
+.statPop{display:inline-block;animation:statPopBounce .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes statPopBounce{0%{transform:scale(1)}40%{transform:scale(1.35);color:#ffd400}100%{transform:scale(1)}}
+
+/* ---------- steve card popup ---------- */
+#steveCardOverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100000;align-items:center;justify-content:center;flex-direction:column}
+#steveCard{background:#14365c;border:3px solid #ffd400;border-radius:22px;max-width:360px;width:90%;padding:18px;color:#fff;box-shadow:0 20px 50px rgba(0,0,0,.5);animation:popIn .2s ease}
+#steveCard img{width:100%;border-radius:14px}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ---------- pack open fx ---------- */
+#packFx{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.88);z-index:9999999;flex-direction:column}
+#packFx .pack{font-size:120px;animation:shake .25s infinite}
+#packFx .msg{font-size:34px;color:#ffd400;font-weight:bold}
+@keyframes shake{25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+
+/* ---------- scanner HUD (home world, floating) ---------- */
+#scannerHud{
+position:absolute;right:18px;bottom:78px;z-index:998;
+background:rgba(8,24,38,.88);border:2px solid #66ff99;border-radius:18px;
+padding:8px 10px;width:160px;font:11px monospace;backdrop-filter:blur(8px);display:none;
+}
+#scannerBar{height:8px;background:#234;border-radius:6px;overflow:hidden;margin:6px 0}
+#scannerFill{height:100%;width:72%;background:#5cff7a}
+
+/* ---------- pocket radar + POV bubble ---------- */
+#pocketRadarBtn{position:absolute;right:18px;bottom:78px;z-index:998;width:62px;height:62px;border-radius:50%;font-size:22px;font-weight:900;box-shadow:0 0 25px rgba(255,212,0,.8);animation:radarPulse 2s infinite}
+@keyframes radarPulse{50%{transform:scale(1.08)}}
+#radarOverlay{display:none;position:absolute;inset:0;background:rgba(0,0,0,.82);z-index:10000000;align-items:center;justify-content:center;flex-direction:column}
+#radarScope{width:320px;height:320px;border:4px solid #66ff99;border-radius:50%;background:radial-gradient(circle,#083 0,#021 70%,#010 100%);position:relative;overflow:hidden}
+#radarSweep{position:absolute;left:50%;top:50%;width:2px;height:160px;background:#7fffd4;transform-origin:bottom center;animation:spin 2.2s linear infinite}
+#radarBlip{position:absolute;width:10px;height:10px;border-radius:50%;background:#ff0;left:62%;top:38%}
+@keyframes spin{from{transform:translate(-50%,-100%) rotate(0)}to{transform:translate(-50%,-100%) rotate(360deg)}}
+#povBubble{position:absolute;right:16px;bottom:150px;width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 35%,#9be8ff,#2b7aa2 70%,#123);border:3px solid #66ff99;box-shadow:0 0 18px rgba(102,255,153,.45);overflow:hidden;z-index:998;transition:.25s ease}
+#povBubble.active{width:180px;height:180px;bottom:170px}
+#povScene{position:absolute;inset:0;background:linear-gradient(#78cfff,#dff7ff 58%,#f0d18b 59%,#e0c06d)}
+#povPalm{position:absolute;right:8px;top:10px;font-size:42px;animation:palmSway 3.8s ease-in-out infinite}
+#povBird{position:absolute;left:18px;top:24px;font-size:16px;animation:birdFly 5s linear infinite}
+#povEars{position:absolute;bottom:-2px;font-size:36px;letter-spacing:18px;animation:ears 2.2s ease-in-out infinite}
+#povLabel{position:absolute;bottom:8px;font:700 10px Arial;color:#fff;text-shadow:0 1px 2px #000}
+@keyframes palmSway{50%{transform:rotate(8deg)}}
+@keyframes birdFly{0%{transform:translateX(-8px)}50%{transform:translateX(24px) translateY(-4px)}100%{transform:translateX(-8px)}}
+@keyframes ears{50%{transform:translateY(-2px)}}
+
+/* ---------- world camera (BUILD1524) ---------- */
+#worldViewport{position:fixed;inset:0;z-index:40;overflow:hidden;pointer-events:none}
+#worldCamera{position:absolute;top:0;left:0;width:1400px;height:900px;will-change:transform}
+#crabLayer{position:absolute;inset:0}
+
+/* ---------- mascot / player-controlled cat ----------
+   Classic camera-follow setup: the cat sprite stays visually centered
+   on screen at all times; the WORLD (#worldCamera) pans underneath it.
+   JS drives the transform directly every frame (bob + facing), so no
+   CSS animation is applied to it here. */
+#activeMascot{display:block;position:fixed;left:50%;top:58%;width:92px;z-index:900;pointer-events:none;filter:drop-shadow(0 8px 12px rgba(0,0,0,.4));transform-origin:50% 100%}
+/* Reserved for future cosmetics (fishing rod, raincoat, cap, ...) — an
+   extra layer stacked on the same anchor/pivot as the cat, so gear can
+   be added later without touching the player entity itself. Empty and
+   inert until a src is actually set. */
+#catGearLayer{display:block;position:fixed;left:50%;top:58%;width:92px;z-index:901;pointer-events:none;transform-origin:50% 100%}
+#catGearLayer:not([src]),#catGearLayer[src=""]{display:none}
+
+/* ---------- virtual joystick (touch movement) ---------- */
+#joystickBase{position:fixed;left:22px;bottom:86px;width:96px;height:96px;border-radius:50%;background:rgba(8,24,38,.45);border:2px solid rgba(255,255,255,.35);z-index:850;touch-action:none;display:none}
+#joystickBase.visible{display:block}
+#joystickKnob{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,212,0,.85);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+
+/* ---------- walk-to-Old-Pier landmark (now lives in world-space) + prompt (screen HUD) ---------- */
+#oldPierLandmark{position:absolute;z-index:60;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.oldPierIcon{position:relative;font-size:34px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+.oldPierGlow{position:absolute;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,rgba(255,212,0,.35),transparent 70%);animation:oldPierPulse 2.4s ease-in-out infinite}
+
+/* ---------- BUILD1532: small waves lapping at Old Pier ---------- */
+.pierWaves{position:absolute;width:110px;height:20px;pointer-events:none}
+.pierWave{position:absolute;bottom:0;width:46px;height:14px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.55),transparent 70%);animation:pierWaveLap 2.6s ease-in-out infinite}
+.pierWave.w2{left:32px;animation-delay:.7s}
+.pierWave.w3{left:60px;animation-delay:1.4s}
+@keyframes pierWaveLap{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.6;transform:scale(1.15)}}
+@keyframes oldPierPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+.oldPierLabel{font-size:11px;font-weight:800;letter-spacing:.5px;background:rgba(8,24,38,.7);padding:2px 8px;border-radius:8px;margin-top:2px}
+#oldPierPrompt{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(12px);z-index:950;opacity:0;pointer-events:none;transition:.25s cubic-bezier(.2,.8,.2,1)}
+#oldPierPrompt.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+#oldPierPrompt button{display:flex;align-items:center;gap:8px;box-shadow:0 8px 22px rgba(0,0,0,.4),0 0 20px rgba(255,212,0,.4)}
+#oldPierPrompt .keyHint{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.4);border-radius:5px;padding:1px 7px;font-size:12px}
+
+/* ---------- lagoon toast (world flavor) ---------- */
+#lagoonToast{position:fixed;left:50%;top:80px;transform:translateX(-50%);background:rgba(8,24,38,.96);color:#fff;border:2px solid #ffd400;border-radius:18px;padding:14px 20px;z-index:999999;display:none;box-shadow:0 10px 35px rgba(0,0,0,.45)}
+
+/* ---------- steve world layer ---------- */
+#steveLayer{position:absolute;inset:0;pointer-events:none;z-index:850;overflow:hidden}
+#steveLayer img{pointer-events:auto}
+#steveSpeech{position:absolute;display:none;max-width:240px;background:#fff;color:#111;padding:10px 14px;border-radius:16px;border:3px solid #ffd400;z-index:900;font-weight:bold;box-shadow:0 8px 20px rgba(0,0,0,.4);backdrop-filter:blur(6px)}
+#steveSprite{display:block !important;position:fixed;width:190px;height:auto;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 6px 8px rgba(0,0,0,.35));transform-origin:center;transition:transform .18s ease,filter .18s ease;z-index:860}
+#steveSprite.steveFlying{animation:steveFlightLoop .55s steps(2) infinite}
+@keyframes steveFlightLoop{0%{transform:translateY(0) rotate(-8deg) scale(1)}50%{transform:translateY(-10px) rotate(8deg) scale(1.03)}100%{transform:translateY(0) rotate(-8deg) scale(1)}}
+#steveCanvas{border:none;background:transparent;opacity:1;position:absolute;width:220px;height:110px;left:0;top:0;z-index:860;pointer-events:auto;image-rendering:pixelated}
+
+/* ---------- ambient world layer (fish/bubbles/kelp/etc) ---------- */
+#fishLayer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.lagoonFish{position:absolute;font-size:30px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35));animation:swimAcross linear forwards}
+@keyframes swimAcross{0%{transform:translateX(-80px) translateY(0) scaleX(1)}48%{transform:translateX(50vw) translateY(-12px)}52%{transform:translateX(50vw) translateY(-12px) scaleX(-1)}100%{transform:translateX(-80px) translateY(8px) scaleX(-1)}}
+.waterBubble{position:fixed;bottom:-120px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,.12));box-shadow:0 0 30px rgba(180,220,255,.7), inset 0 0 10px rgba(255,255,255,.5);backdrop-filter:blur(1px);animation:lagoonRise linear forwards}
+@keyframes lagoonRise{0%{transform:translate(0,0) scale(.4);opacity:0}10%{opacity:.9}50%{transform:translate(-8px,-60vh) scale(.9)}100%{transform:translate(10px,-120vh) scale(1);opacity:0}}
+.firefly{position:fixed;font-size:10px;pointer-events:none;z-index:4;animation:fireflyFloat 10s linear infinite}
+@keyframes fireflyFloat{0%{transform:translate(0,0)}100%{transform:translate(20px,-120px);opacity:0}}
+.weatherRaindrop{position:fixed;top:-20px;width:2px;height:16px;background:linear-gradient(rgba(180,210,255,0),rgba(180,210,255,.65));pointer-events:none;z-index:6;animation:weatherFall linear forwards}
+.weatherSnowflake{position:fixed;top:-14px;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 4px rgba(255,255,255,.7);pointer-events:none;z-index:6;animation:weatherFallDrift linear forwards}
+.herringFry{width:42px;height:auto;object-fit:contain;pointer-events:none;z-index:2000001;filter:drop-shadow(0 2px 3px rgba(0,0,0,.28))}
+.waterParticle{position:fixed;width:3px;height:3px;border-radius:50%;background:rgba(200,230,255,.5);box-shadow:0 0 4px rgba(200,230,255,.4);pointer-events:none;z-index:2000001;animation:waterParticleDrift linear forwards}
+@keyframes waterParticleDrift{0%{transform:translate(0,0);opacity:0}10%{opacity:.7}90%{opacity:.5}100%{transform:translate(30px,-40px);opacity:0}}
+@keyframes weatherFall{to{transform:translateY(110vh)}}
+@keyframes weatherFallDrift{0%{transform:translate(0,0)}50%{transform:translate(15px,55vh)}100%{transform:translate(-10px,110vh)}}
+.schoolFish,.schoolHerring,.sanddab,.sealNpc,.krabbeNpc{position:fixed;pointer-events:none;z-index:5;image-rendering:auto}
+.schoolFish{width:22px;transform:rotate(45deg);transform-origin:center center}
+.schoolHerring{width:16px;opacity:.9}
+.sanddab{width:42px;bottom:60px}
+.sealNpc{width:150px}
+.krabbeNpc{width:78px}
+.jellyNpc{position:fixed;font-size:42px;pointer-events:none;z-index:4;animation:jellyFloat linear forwards}
+@keyframes jellyFloat{0%{transform:translateY(110vh) translateX(0)}50%{transform:translateY(40vh) translateX(25px)}100%{transform:translateY(-15vh) translateX(-20px)}}
+.plankton{position:fixed;width:2px;height:2px;border-radius:50%;background:rgba(255,255,255,.7);z-index:1;pointer-events:none;animation:planktonFloat linear forwards}
+@keyframes planktonFloat{from{transform:translateY(110vh)}to{transform:translateY(-10vh) translateX(30px)}}
+.kelp{display:none!important} /* kept as a class for compatibility; visually disabled per BUILD1402/1415 patch history */
+.waterCaustics{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.28;background:repeating-linear-gradient(115deg,rgba(255,255,255,.18) 0 2px,transparent 2px 28px),repeating-linear-gradient(65deg,rgba(255,255,255,.10) 0 2px,transparent 2px 34px);background-size:260px 260px;animation:causticsMove 16s linear infinite;mix-blend-mode:screen}
+@keyframes causticsMove{0%{background-position:0 0,0 0}100%{background-position:260px 140px,-220px 120px}}
+.sunRays{position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(100deg,rgba(255,255,220,.06) 0 20px,transparent 20px 120px);animation:sunRayMove 20s linear infinite}
+@keyframes sunRayMove{from{transform:translateX(-80px)}to{transform:translateX(80px)}}
+.waterGlow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.06),transparent 30%),radial-gradient(circle at 80% 60%,rgba(120,220,255,.05),transparent 35%);animation:waterShift 12s ease-in-out infinite alternate}
+@keyframes waterShift{from{transform:translateY(-8px)}to{transform:translateY(8px)}}
+.lagoonFog{position:fixed;inset:-10% -10%;pointer-events:none;z-index:2;opacity:.16;background:radial-gradient(ellipse 60% 40% at 20% 85%,rgba(255,255,255,.9),transparent 60%),radial-gradient(ellipse 50% 35% at 80% 90%,rgba(255,255,255,.7),transparent 65%);filter:blur(6px);animation:fogDrift 26s ease-in-out infinite alternate}
+@keyframes fogDrift{0%{transform:translateX(-3%) translateY(0)}100%{transform:translateX(3%) translateY(-2%)}}
+#lagoonClock{position:fixed;left:14px;top:14px;z-index:900;background:rgba(8,24,38,.85);border:2px solid #ffd400;border-radius:14px;padding:8px 12px;font-weight:bold;backdrop-filter:blur(4px)}
+#ecosystemHud{position:fixed;right:12px;top:14px;z-index:900;background:#123b2a;border:2px solid #8cff8c;color:#fff;padding:8px 12px;border-radius:14px;font-weight:bold}
+#quietThought{position:fixed;left:50%;bottom:70px;transform:translateX(-50%);background:rgba(0,0,0,.45);color:#fff;padding:8px 12px;border-radius:12px;z-index:9999}
+
+/* ---------- xp popup ---------- */
+#xpPop{position:fixed;left:50%;top:120px;transform:translateX(-50%);background:#ffd400;color:#000;padding:8px 12px;border-radius:12px;font-weight:bold;z-index:9999;animation:fadeUp 1s forwards}
+@keyframes fadeUp{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(-40px)}}
+
+/* ---------- engine debug panel (dev only) ---------- */
+#engineDebugHud{position:fixed;left:8px;bottom:70px;z-index:1000005;background:#111;color:#7CFF7C;padding:8px;font:11px monospace;line-height:1.5;white-space:pre;max-width:260px;display:block}
+
+/* ---------- BUILD1514: INTRO — Hidden Lagoon Studios splash ---------- */
+#introScreen{position:fixed;inset:0;z-index:999999999;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;transition:opacity .9s ease}
+#introScreen.introHide{opacity:0;pointer-events:none}
+#introGlow{position:absolute;width:70vmax;height:70vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,120,150,.16),rgba(95,200,255,.08) 45%,transparent 72%);filter:blur(50px);animation:introGlowPulse 6s ease-in-out infinite}
+@keyframes introGlowPulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+#introLogo{position:relative;width:min(72vw,520px);max-height:70vh;object-fit:contain;opacity:0;filter:blur(10px) brightness(1.15);transform:scale(.9);animation:introLogoIn 2.4s cubic-bezier(.16,.8,.4,1) .25s forwards;box-shadow:0 30px 90px rgba(0,0,0,.7)}
+@keyframes introLogoIn{0%{opacity:0;transform:scale(.9);filter:blur(10px) brightness(1.15)}55%{opacity:1}100%{opacity:1;transform:scale(1);filter:blur(0) brightness(1)}}
+#introVignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 38%,rgba(0,0,0,.92) 100%)}
+#introGrain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background:repeating-radial-gradient(circle at 30% 40%,#fff 0 1px,transparent 1px 3px)}
+#introTapHint{position:absolute;bottom:9%;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.82);font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:0;animation:introHintIn .8s ease 2.6s forwards,introHintPulse 2.6s ease-in-out 3.4s infinite}
+@keyframes introHintIn{to{opacity:1}}
+@keyframes introHintPulse{0%,100%{opacity:.45}50%{opacity:1}}
+.introBubble{position:absolute;bottom:-10%;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.55),rgba(255,255,255,.1));box-shadow:0 0 14px rgba(180,220,255,.5),inset 0 0 6px rgba(255,255,255,.4);animation:introBubbleRise linear forwards}
+@keyframes introBubbleRise{0%{transform:translateY(0) scale(.5);opacity:0}8%{opacity:.85}92%{opacity:.5}100%{transform:translateY(-115vh) scale(1);opacity:0}}
+
+/* BUILD1527 Old Pier Mackerel */
+#mackeMackerel{position:absolute;width:72px;height:auto;z-index:120;pointer-events:none;transform-origin:center;}
+
+/* BUILD1605 CARTOON RETRO UI PASS — visual only */
+:root{--ink:#172a28;--cream:#f2e3b7;--teal:#176b6c;--dark:#0d454b;--mustard:#e8b43f;--orange:#d86f35;--coral:#d95b50;--olive:#788f35}
+body{color:var(--cream);background:radial-gradient(circle at 18% 18%,rgba(242,227,183,.10),transparent 22%),linear-gradient(180deg,#78aaa0 0%,#3f8583 22%,#216b73 52%,#174d5a 76%,#103944 100%)}
+button{background:linear-gradient(180deg,#f2c84d,#d99a2d);color:var(--ink);border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink),0 9px 16px rgba(0,0,0,.25);text-transform:uppercase;letter-spacing:.35px}
+button:hover{transform:translateY(-1px) rotate(-.25deg);box-shadow:0 6px 0 var(--ink),0 10px 18px rgba(0,0,0,.28)}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink),0 4px 8px rgba(0,0,0,.25)}
+.card{background:linear-gradient(180deg,rgba(25,105,106,.96),rgba(13,69,75,.96));backdrop-filter:none;border:3px solid var(--ink);border-radius:20px 17px 22px 16px;box-shadow:0 6px 0 var(--ink),0 12px 22px rgba(0,0,0,.22)}
+.card:hover{transform:none;box-shadow:0 6px 0 var(--ink),0 12px 22px rgba(0,0,0,.22)}
+.card h2,.card h3{color:var(--cream);text-shadow:2px 2px 0 var(--ink);letter-spacing:.7px}
+.continueCard{background:linear-gradient(180deg,#f2e3b7,#e7d39e);color:var(--ink);border:4px solid var(--ink);box-shadow:0 7px 0 var(--ink),0 14px 25px rgba(0,0,0,.28);animation:none}
+.continueCard h3{color:var(--orange);font-size:24px;line-height:1;text-shadow:2px 2px 0 var(--ink);transform:rotate(-1deg)}
+.continueCard .bar{background:#c9b77e;border:2px solid var(--ink)}
+.continueCard .barFill{background:var(--coral)}
+.missionPulse{animation:none}
+.scannerCard{padding:14px;background:linear-gradient(160deg,#247d7c,#15575e 72%);border:4px solid var(--ink);border-radius:23px 17px 25px 19px;box-shadow:0 7px 0 var(--ink),0 14px 24px rgba(0,0,0,.3);overflow:hidden}
+.scannerCard.passDGlow{animation:none}
+.scannerCard h3{display:inline-block;margin:0 0 8px;padding:6px 14px 5px;background:var(--mustard);color:var(--ink);border:3px solid var(--ink);border-radius:8px 13px 7px 12px;box-shadow:3px 3px 0 var(--ink);text-shadow:none;transform:rotate(-1.5deg)}
+.scannerViz{width:210px;height:210px;margin:12px auto 18px;border:7px solid var(--ink);background:repeating-radial-gradient(circle,transparent 0 24px,rgba(120,143,53,.58) 25px 27px,transparent 28px 49px),linear-gradient(90deg,transparent 49.4%,rgba(120,143,53,.75) 49.5% 50.5%,transparent 50.6%),linear-gradient(0deg,transparent 49.4%,rgba(120,143,53,.75) 49.5% 50.5%,transparent 50.6%),radial-gradient(circle,#153d35 0%,#0d2928 74%);box-shadow:0 0 0 5px var(--mustard),0 0 0 9px var(--ink),0 12px 18px rgba(0,0,0,.32);animation:none}
+.scannerRing{border:2px solid rgba(217,91,80,.88);animation:scannerPulse 2.8s ease-out infinite}
+.scannerSweep{inset:0;background:conic-gradient(from 0deg,rgba(242,200,77,.9) 0deg,rgba(242,200,77,.20) 34deg,transparent 72deg);mix-blend-mode:normal;animation-duration:2.8s}
+.scannerDot{font-size:0;filter:none;animation:none}
+.scannerDot::before{content:"";width:18px;height:18px;border-radius:50%;background:var(--coral);border:3px solid var(--ink);box-shadow:0 0 0 3px var(--mustard)}
+.scannerDot::after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--coral);border:2px solid var(--ink);left:70%;top:28%;box-shadow:-92px 58px 0 -1px var(--orange)}
+.scannerCard .stats{justify-content:center;font-size:15px;font-weight:800;color:var(--cream)}
+.scannerCard button{font-size:18px}
+.steveCard{background:linear-gradient(180deg,#2c8580,#176166);border:4px solid var(--ink);position:relative}
+.steveCard::after{content:"YO!";position:absolute;right:15px;top:13px;background:var(--cream);color:var(--ink);border:3px solid var(--ink);border-radius:50%;padding:8px 7px;font-weight:900;transform:rotate(8deg)}
+.discoveryCard{background:linear-gradient(180deg,#758c3a,#506c31);border:4px solid var(--ink)}
+.heroCard{border:3px solid var(--ink);box-shadow:0 7px 0 var(--ink),0 14px 26px rgba(0,0,0,.28)}
+.heroOverlay{background:rgba(13,69,75,.88);border:3px solid var(--ink)}
+nav{background:var(--ink);border-top:3px solid #081716}
+nav button{color:var(--cream);background:#173b39;border:0;border-right:2px solid #081716;border-radius:0;box-shadow:none;text-transform:none}
+nav button.active{background:var(--mustard);color:var(--ink)}
+nav button:hover{background:#285a55;box-shadow:none;transform:none}
+nav button.active:hover{background:var(--mustard)}
+
+
+/* BUILD1608 — Macke first-catch jump */
+#mackeCatchFx{position:fixed;inset:0;z-index:9999998;display:none;pointer-events:none;overflow:hidden}
+#mackeCatchFx.show{display:block}
+#mackeCatchFish{position:absolute;left:50%;bottom:14%;width:min(48vw,260px);height:auto;transform:translateX(-50%);filter:drop-shadow(0 14px 10px rgba(0,0,0,.38));animation:mackeCatchJump 1.35s cubic-bezier(.2,.75,.3,1) both}
+#mackeCatchSplash{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font-size:34px;font-weight:900;color:var(--cream);text-shadow:3px 3px 0 var(--ink);animation:mackeSplashPop 1.1s ease both}
+@keyframes mackeCatchJump{0%{transform:translateX(-50%) translateY(180px) rotate(-12deg) scale(.65);opacity:0}18%{opacity:1}52%{transform:translateX(-50%) translateY(-260px) rotate(14deg) scale(1.08)}78%{transform:translateX(-50%) translateY(-170px) rotate(-8deg) scale(1)}100%{transform:translateX(-50%) translateY(120px) rotate(10deg) scale(.82);opacity:0}}
+@keyframes mackeSplashPop{0%{opacity:0;transform:translateX(-50%) scale(.4) rotate(-8deg)}25%{opacity:1;transform:translateX(-50%) scale(1.15) rotate(4deg)}100%{opacity:0;transform:translateX(-50%) scale(.9) translateY(-80px)}}
+
+</style>
+</head>
+
+<body>
+<!-- BUILD1600 FOUNDATION: GitHub-ready test build -->
+<div id="introScreen">
+  <div id="introGlow"></div>
+  <img id="introLogo" src="images/intro/hiddenlagoonstudios.png" alt="Hidden Lagoon Studios"/>
+  <div id="introVignette"></div>
+  <div id="introGrain"></div>
+  <div id="introTapHint">Tryck var som helst för att fortsätta</div>
+  <audio id="introWaterSound" src="audio/intro-water-ambience.mp3" preload="auto" loop></audio>
+</div>
+
+<div id="engineDebugHud"></div>
+<div class="sunRays"></div>
+<div class="waterCaustics"></div>
+
+<!-- =====================================================================
+     HOME WORLD
+     Every "living world" object (Steve, fish, seal, octopus, crab,
+     bubbles, scanner HUD, POV cam, radar, mascot...) lives inside this
+     ONE container. Toggling #homeWorld.hlHidden is the only thing
+     UIManager.showTab() needs to do to hide the entire living world on
+     every tab except Home. Anything spawned dynamically by JS must be
+     appended here via worldRoot() — never to document.body.
+     ===================================================================== -->
+<div id="homeWorld">
+<div id="worldViewport">
+  <div id="worldCamera">
+    <div id="crabLayer"></div>
+    <img id="mackeMackerel" src="makrill/makrill_glad.png" alt="Macke Makrill">
+<div id="oldPierLandmark">
+      <div class="oldPierGlow"></div>
+      <div class="oldPierIcon">🏝️</div>
+      <div class="oldPierLabel">Old Pier</div>
+    </div>
+    <div id="pierWaves" class="pierWaves">
+      <div class="pierWave w1"></div>
+      <div class="pierWave w2"></div>
+      <div class="pierWave w3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="lagoonFog"></div>
+
+<div id="scannerHud">
+<b>SCANNER</b>
+<div id="scannerBar"><div id="scannerFill"></div></div>
+<div id="scannerTarget">Target: STEVE</div>
+<div id="scannerState">State: FLY</div>
+<div id="scannerDist">Distance: 43 m</div>
+</div>
+
+<div id="steveLayer"><div id="steveCanvasShadow" style="position:absolute;width:90px;height:18px;border-radius:50%;background:rgba(0,0,0,.28);filter:blur(5px);pointer-events:none;"></div><canvas id="steveCanvas" width="220" height="110" style="display:none"></canvas></div>
+<div id="steveSpeech"></div>
+
+<div id="steveCardOverlay" onclick="if(event.target===this)this.style.display='none'">
+<div id="steveCard">
+<h2>🐦 Seagull Steve</h2>
+<img src="assets/09_steve.jpg" onerror="wireImgCascade(this,STEVE_SPRITE_CANDIDATES.slice(1),'Steve card popup')"/>
+<p><b>Plats:</b> <span id="steveCardPlace">Old Pier</span></p>
+<p>🍟 Professionell snackstjuv.</p>
+<button onclick="document.getElementById('steveCardOverlay').style.display='none'">Stäng</button>
+</div>
+</div>
+
+<div id="packFx"><div class="pack">📦</div><div class="msg">RIPPING PACK...</div></div>
+<img id="activeMascot" src="beachcat_idle.png"/>
+<img id="catGearLayer"/>
+<div id="joystickBase"><div id="joystickKnob"></div></div>
+
+<div id="oldPierPrompt">
+  <button id="oldPierEnterBtn" onclick="enterOldPierFromWorld()">🚶 Gå till Old Pier <span class="keyHint">E</span></button>
+</div>
+
+<div id="povBubble">
+ <div id="povScene"></div>
+ <div id="povPalm">🌴</div>
+ <div id="povBird">🐦</div>
+ <div id="povEars">🐱</div>
+ <div id="povLabel">BEACH CAT POV</div>
+</div>
+
+<button id="pocketRadarBtn">◎</button>
+<div id="radarOverlay">
+<h2>📡 Pocket Radar</h2>
+<div id="radarScope"><div id="radarSweep"></div><div id="radarBlip"></div></div>
+<button onclick="document.getElementById('radarOverlay').style.display='none'">Close</button>
+</div>
+
+<div id="lagoonToast"></div>
+
+</div>
+<!-- ===== END HOME WORLD ===== -->
+
+<div id="hlToast"></div>
+
+<div id="mackeCatchFx" aria-hidden="true">
+  <img id="mackeCatchFish" src="makrill/makrill_glad.png" alt="Macke Makrill">
+  <div id="mackeCatchSplash">SPLOSH!</div>
+</div>
+
+
+<!-- PASS D: Quest foundations, scanner emphasis and first mystery hook -->
+<!-- =====================================================================
+     HOME — Hero / Continue / Quest / Scanner / Steve Activity /
+     Latest Discovery. Nothing else. No debug, no duplicate info cards.
+     ===================================================================== -->
+<div class="tab active" id="home">
+
+  <div class="heroCard">
+<div class="heroSelfieMini">
+  <div class="selfieCam" id="selfieCam">
+    <img class="selfieCamImg" id="selfieCamImgA"/>
+    <img class="selfieCamImg active" id="selfieCamImgB"/>
+    <div class="selfieCamGlow"></div>
+  </div>
+</div>
+    <img class="heroImg" id="heroImg" src="images/selfiecam/selfie6_front.png" onerror="this.onerror=null;this.src='beachcat.jpg'"/>
+    <div class="heroOverlay">
+      <div class="name" id="heroOverlayName">GOLF CAT</div>
+      <div>LEVEL <span id="heroLevel">1</span> &nbsp;·&nbsp; RESCUES <span id="heroRescues">0</span></div>
+    </div>
+    <div class="heroActions">
+      <button onclick="Game.get('player').addXP(10)">🍟 Treat</button>
+      <button onclick="Game.get('player').addXP(25)">🦐 Hunt</button>
+      <button onclick="Game.get('player').rescue();Game.get('player').addXP(50)">🐱 Rescue</button>
+    </div>
+  </div>
+
+  
+<div class="card continueCard missionPulse">
+<h3>BEGIN MISSION — ADVENTURE!</h3>
+<div id="continueText">Start exploring the lagoon.</div>
+<div style="margin-top:8px;font-size:14px">
+<b>🌴 <b>Current Quest:</b></b> <span id="questText">Follow Steve to Old Pier, scan the strange signal and recover the Hidden Cache.</span>
+</div>
+<div class="bar"><div class="barFill" id="questBar" style="width:0%"></div></div>
+<div id="questProgressText">Mission 1 of 5</div>
+<button id="continueBtn" style="font-size:18px;letter-spacing:.5px" onclick="continueGame()">▶ START QUEST</button>
+</div>
+
+  <div class="card scannerCard passDGlow">
+    <h3>📡 SCANNER</h3>
+    <div class="scannerViz">
+      <div class="scannerRing r1"></div>
+      <div class="scannerRing r2"></div>
+      <div class="scannerRing r3"></div>
+      <div class="scannerSweep"></div>
+      <div class="scannerDot">📡</div>
+    </div>
+    <div class="stats">
+      <span>Scans: <b id="demoScans">0</b></span>
+      <span>Cards: <b id="demoCards">0</b> / <span id="demoCardsTotal">10</span></span>
+    </div>
+    <button id="demoScanBtn" onclick="demoScan()">📡 HOLD TO SCAN</button>
+  </div>
+
+  <div class="card steveCard">
+    <h3>🐦 STEVE ACTIVITY</h3>
+    <div id="steveActivityText">🕊️ Steve was last seen circling Old Pier.</div>
+  </div>
+
+  <div class="card discoveryCard">
+    <h3>🌊 LATEST DISCOVERY</h3>
+    <div id="latestDiscoveryText">📦 Steve spotted a buried cache beneath the pier. Use the scanner and search the area to uncover your first collectible.</div>
+    <button onclick="dailyDiscovery()">New Discovery</button>
+  </div>
+
+</div>
+
+<!-- =====================================================================
+     CHARACTERS (cat select) — kept as its own tab; not part of the
+     Home layout spec but core to PlayerManager/theme logic.
+     ===================================================================== -->
+<div class="tab" id="cats">
+  <div class="card">
+    <h2>Choose Character</h2>
+    <div class="catrow" style="display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:16px">
+      <div class="cat" onclick="setCat('Beach Cat',this)" style="background:linear-gradient(180deg,#17466e,#0d2740);border:2px solid rgba(255,212,0,.35);padding:12px;box-shadow:0 10px 20px rgba(0,0,0,.35)"><div style=\"position:absolute\"></div><img src="beachcat_idle.png" style="height:170px;object-fit:cover;border-radius:12px"/><div style="margin-top:10px;font-size:18px;font-weight:900">Beach Cat</div><div style="opacity:.8;font-size:12px;margin-top:4px">Choose Character</div><div style="margin-top:8px;font-size:11px;opacity:.75">Starter</div></div>
+      <div class="cat" onclick="setCat('Punk Cat',this)" style="background:linear-gradient(180deg,#17466e,#0d2740);border:2px solid rgba(255,212,0,.35);padding:12px;box-shadow:0 10px 20px rgba(0,0,0,.35)"><img src="frilagdpunkkatt.png" style="height:170px;object-fit:cover;border-radius:12px"/><div style="margin-top:10px;font-size:18px;font-weight:900">Punk Cat</div><div style="opacity:.8;font-size:12px;margin-top:4px">Choose Character</div><div style="margin-top:8px;font-size:11px;opacity:.75">Starter</div></div>
+      <div class="cat" onclick="setCat('Golf Cat',this)" style="background:linear-gradient(180deg,#17466e,#0d2740);border:2px solid rgba(255,212,0,.35);padding:12px;box-shadow:0 10px 20px rgba(0,0,0,.35)"><img src="frilagdgolfkatt.png" style="height:170px;object-fit:cover;border-radius:12px"/><div style="margin-top:10px;font-size:18px;font-weight:900">Golf Cat</div><div style="opacity:.8;font-size:12px;margin-top:4px">Choose Character</div><div style="margin-top:8px;font-size:11px;opacity:.75">Starter</div></div>
+      <div class="cat" onclick="setCat('Desert Dave',this)" style="background:linear-gradient(180deg,#17466e,#0d2740);border:2px solid rgba(255,212,0,.35);padding:12px;box-shadow:0 10px 20px rgba(0,0,0,.35)"><img src="frilagddesertdave.png" style="height:170px;object-fit:cover;border-radius:12px"/><div style="margin-top:10px;font-size:18px;font-weight:900">Desert Dave</div><div style="opacity:.8;font-size:12px;margin-top:4px">Choose Character</div><div style="margin-top:8px;font-size:11px;opacity:.75">Starter</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     COLLECTION — the album. Nothing else.
+     ===================================================================== -->
+<div class="tab" id="collection">
+  <div class="albumGrid" id="albumGrid"></div>
+</div>
+
+</div>
+
+<!-- =====================================================================
+     EXPLORE — big posters, generated from Engine.AreaAssets (single
+     source of truth). No hardcoded per-area markup.
+     ===================================================================== -->
+<div class="tab" id="explore">
+  <div id="exploreGrid"></div>
+  <div id="areaView">
+    <div id="areaViewBg"><div id="areaViewOverlay">
+      <button onclick="AreaManager.leave()">⬅ RETURN</button>
+      <h1 id="areaViewTitle"></h1>
+      <div id="areaViewResult"></div>
+      <div style="display:flex;gap:10px">
+        <button onclick="AreaManager.scan()">📡 Scan</button>
+        <button id="areaViewActionBtn" onclick="AreaManager.search()">🔎 Search</button>
+      </div>
+      <ul id="areaNpcList"></ul>
+    </div></div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     RADIO — Shelter Radio (with Broadcast), Scanner, Steve Status. Done.
+     ===================================================================== -->
+<div class="tab" id="radio">
+  <div class="card radioHero">
+    <div class="radioHeroTint"></div>
+    <div class="onAirBadge">🔴 ON AIR</div>
+    <div class="radioHeroContent">
+    <h2>📻 SHELTER RADIO 87.4 MHz</h2>
+    <div style="margin-bottom:10px">The broadcasting heart of Hidden Lagoon.</div>
+    <div id="radioReport">📻 Welcome back to Shelter Radio...</div>
+    <button class="radioBtn" onclick="Game.get('radio').broadcast()">New Broadcast</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📡 Scanner</h3>
+    <div class="signalMeter" aria-hidden="true">
+      <span class="signalBar b1"></span>
+      <span class="signalBar b2"></span>
+      <span class="signalBar b3"></span>
+      <span class="signalBar b4"></span>
+    </div>
+    <div id="radioScanTarget">Target: —</div>
+    <div id="radioScanState">State: —</div>
+    <div id="radioScanDist">Distance: —</div>
+  </div>
+  <div class="card">
+    <h3>🐦 Steve Status</h3>
+    <div id="steveStatus">Searching...</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     BOTTOM NAVIGATION — single nav, renders active state, drives every
+     tab through Engine.UIManager.showTab().
+     ===================================================================== -->
+<nav id="mainNav">
+<button data-tab="home" onclick="Game.get('ui').showTab('home')">🏠<br/>Home</button>
+<button data-tab="cats" onclick="Game.get('ui').showTab('cats')">🐱<br/>Cats</button>
+<button data-tab="collection" onclick="Game.get('ui').showTab('collection')">🃏<br/>Collection</button>
+<button data-tab="explore" onclick="Game.get('ui').showTab('explore')">🧭<br/>Explore</button>
+<button data-tab="radio" onclick="Game.get('ui').showTab('radio')">📻<br/>Radio</button>
+
+</nav>
+
+<script>
+/* =====================================================================
+   BUILD1512 CONFIG — SELFIE CAM
+   Fixed list, on purpose: exact order every time, identical on mobile/
+   PC/Netlify, no dependency on folder contents. To add/remove a photo,
+   edit this array only.
+
+   DEMO SCOPE: one flat list of 6 photos, shared by every cat. Kept
+   deliberately simple for the demo.
+
+   POST-DEMO: once more cats/expressions exist, swap this for a map
+   keyed by cat id, e.g.:
+     const SELFIE_CAM = {
+       beachcat: ['images/selfiecam/beach/01.png', ...],
+       golfcat:  ['images/selfiecam/golf/01.png', ...],
+       punkcat:  ['images/selfiecam/punk/01.png', ...]
+     };
+   and pick SELFIE_CAM[currentCat] instead of SELFIE_CAM_IMAGES below.
+   Not needed for the demo build, so not wired in yet.
+   ===================================================================== */
+const SELFIE_CAM_IMAGES=[
+ 'images/selfiecam/selfie1_left.png',
+ 'images/selfiecam/selfie2_right.png',
+ 'images/selfiecam/selfie3_up.png',
+ 'images/selfiecam/selfie4_down.png',
+ 'images/selfiecam/selfie5_smile.png',
+ 'images/selfiecam/selfie6_front.png'
+];
+const SELFIE_CAM_INTERVAL_MS=5000; // 5s per spec
+const SELFIE_CAM_FADE_MS=400; // must match .selfieCamImg transition in CSS (300-500ms)
+
+/* =====================================================================
+   BUILD1524 CONFIG — WORLD CAMERA
+   The Home "beach" is now bigger than the screen. The camera follows
+   the cat around inside it. Scope on purpose: only the cat, the crabs,
+   and the Old Pier landmark live in this world for now — fish/Steve/
+   jellyfish/bubbles are deliberately left as-is (still screen-fixed)
+   until this core mechanic is confirmed to feel right.
+   ===================================================================== */
+const WORLD_W=1400;
+const WORLD_H=900;
+const OLDPIER_WORLD_X=WORLD_W-160;
+const OLDPIER_WORLD_Y=220;
+
+/* =====================================================================
+   BUILD1525 CONFIG — BEACH CAT ANIMATION SYSTEM
+   State-driven and name-based: the player only ever says "I'm walking
+   left" or "play scan" — this table decides what that actually looks
+   like. Naming convention: <state>_<direction>, or just <state> for
+   clips that don't have a facing (scan, fish).
+   'right' clips are deliberately omitted — CatAnimator mirrors 'left'
+   automatically, so the art only has to be drawn once.
+
+   Each clip is {frames, loop, holdMs}:
+   - frames: a function returning an array of frame descriptors. A
+     frame is either a plain string (one whole image) or an atlas rect
+     {atlas,x,y,w,h}. Nothing outside CatAnimator's _applyFrame() ever
+     needs to know which kind it's looking at.
+   - loop: true for ambient states (idle/walk) that just keep playing
+     as long as the player reports that state; false for one-shot
+     action clips (scan/fish) that play once and then hand control
+     back to whatever ambient state the player is actually in.
+   - holdMs: minimum time a one-shot clip stays committed before it's
+     allowed to end. With only one frame of art per clip today, actual
+     frame-count would make "scan" finish in ~140ms — too fast to even
+     see — so an explicit hold makes it read as a real action. Once
+     real multi-frame art exists, holdMs can shrink or disappear; the
+     clip's own frame count will carry the timing instead.
+   ===================================================================== */
+
+/* Single shared source of truth for "which image is this cat" —
+   replaces two separate hardcoded maps that used to live inside
+   setCat() and renderHome() and could disagree with each other. */
+const CAT_MASCOT_MAP={
+'Beach Cat':'beachcat_idle.png',
+'Punk Cat':'frilagdpunkkatt.png',
+'Golf Cat':'frilagdgolfkatt.png',
+'Desert Dave':'frilagddesertdave.png'
+};
+const PLAYER_SPRITES={
+ idle:'beachcat_idle.png',
+ left:'beachcat_left.png',
+ right:'beachcat_right.png'
+};
+
+function activeCatBaseFrame(){
+ const name=(Game.state&&Game.state.player&&Game.state.player.activeCat)||'Golf Cat';
+ return CAT_MASCOT_MAP[name]||CAT_MASCOT_MAP['Golf Cat'];
+}
+const CAT_FPS=7; // 6-8 FPS per spec — calm and relaxed, not stressed
+const CAT_CLIPS={
+ idle_down:{frames:()=>[activeCatBaseFrame()],loop:true},
+ idle_up:{frames:()=>[activeCatBaseFrame()],loop:true},
+ idle_right:{frames:()=>[activeCatBaseFrame()],loop:true},
+ walk_down:{frames:()=>[activeCatBaseFrame()],loop:true},
+ walk_up:{frames:()=>[activeCatBaseFrame()],loop:true},
+ walk_right:{frames:()=>[activeCatBaseFrame()],loop:true},
+ scan:{frames:()=>[activeCatBaseFrame()],loop:false,holdMs:900},
+ fish:{frames:()=>[activeCatBaseFrame()],loop:false,holdMs:1400}
+};
+// 1x1 transparent GIF — used as the <img>'s own src when a frame comes
+// from a shared atlas instead, so no broken-image icon ever shows
+// through the background-image trick. Not exercised yet (no atlas
+// exists today) but wired up so dropping one in later is a data change,
+// not a rendering-code change.
+const TRANSPARENT_PIXEL='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+
+/* ========= BEACH CAT — the player entity's animator =========
+   CatAnimator is the ONLY code allowed to touch the player sprite's
+   rendering. Everything else — movement, scanner, future fishing —
+   only ever calls its methods (setDirection, setState, play, setSkin).
+   If some future feature needs the sprite to do something new, it
+   gets a method here; nothing else should ever reach into
+   activeMascot.src or its style directly again.
+
+   It owns:
+   - state (ambient 'idle'/'walk' vs one-shot action clips via play())
+   - facing direction, with automatic left/right mirroring
+   - frame timing, entirely via deltaTime (framerate-independent —
+     looks the same at 30, 60 or 144 FPS)
+   - the idle fidget (a small "look around" after a few still seconds)
+   - the actual transform each frame (bob + mirror + wobble) — nothing
+     outside this class ever sets cat.style.transform
+   - a fixed foot pivot, so swapping in real multi-frame art later
+     never makes the sprite jump vertically
+
+   It deliberately knows NOTHING about the camera — no world position,
+   no camX/camY. The camera, in turn, never looks at animation state.
+   That separation is intentional and should stay that way: swapping
+   cameras or adding zoom later shouldn't require touching this file,
+   and changing animations should never require touching the camera. */
+class CatAnimator{
+ constructor(imgEl){
+  this.img=imgEl;
+  this.desiredState='idle'; // what the player is actually doing right now
+  this.desiredDir='down';
+  this.state='idle';        // what's actually being rendered (may differ while a one-shot clip is committed)
+  this.dir='down';
+  this.frame=0;
+  this.frameTimer=0;
+  this.idleTimer=0;
+  this.lookTimer=0;
+  this.lookActive=false;
+  this.lockedClip=null;     // name of a committed one-shot clip, or null
+  this.lockRemainingMs=0;
+  this.mirrored=false;
+ }
+
+ // ---- public API: the only way the rest of the game talks to the sprite ----
+
+ /** Report facing direction. Only affects rendering when not locked into a one-shot clip. */
+ setDirection(dir){
+  if(dir)this.desiredDir=dir;
+ }
+
+ /** Report ambient state ('idle' or 'walk'). Ignored while a one-shot clip (scan/fish) is still playing. */
+ setState(state){
+  this.desiredState=state;
+  if(!this.lockedClip)this._applyAmbient();
+ }
+
+ /** Play a one-shot action clip to completion, then automatically return to whatever ambient state is current. Re-triggering the same clip restarts it (e.g. rapid scan taps). */
+ play(clipName){
+  const clip=CAT_CLIPS[clipName];
+  if(!clip)return;
+  this.lockedClip=clipName;
+  const frameCount=clip.frames().length;
+  const naturalMs=(frameCount/CAT_FPS)*1000;
+  this.lockRemainingMs=Math.max(naturalMs,clip.holdMs||0);
+  this.state=clipName;
+  this.frame=0;
+  this.frameTimer=0;
+ }
+
+ /** Swap the character model outright (used for the cat picker). Game.state stays the source of truth for which cat is active — this just forces an immediate re-render instead of waiting for the next natural frame tick. */
+ setSkin(){
+  this.refreshNow();
+ }
+
+ refreshNow(){
+  this.frame=0;this.frameTimer=0;
+  this._render(0,true);
+ }
+
+ // ---- internals ----
+
+ _applyAmbient(){
+  this.state=this.desiredState;
+  this.dir=this.desiredDir;
+  this.frame=0;
+  this.frameTimer=0;
+ }
+
+ _clipName(){
+  if(this.lockedClip)return this.lockedClip;
+  return this.state+'_'+this.dir;
+ }
+
+ _resolve(){
+  const name=this._clipName();
+  if(CAT_CLIPS[name])return{clip:CAT_CLIPS[name],frames:CAT_CLIPS[name].frames(),mirror:false};
+  if(this.dir==='left'){
+   const rightName=this.state+'_right';
+   if(CAT_CLIPS[rightName])return{clip:CAT_CLIPS[rightName],frames:CAT_CLIPS[rightName].frames(),mirror:true};
+  }
+  return{clip:CAT_CLIPS.idle_down,frames:CAT_CLIPS.idle_down.frames(),mirror:false};
+ }
+
+ /** Apply one resolved frame descriptor to the DOM. The only place that
+     needs to change when a real sprite atlas eventually replaces
+     single PNGs — everything upstream just deals in frame descriptors. */
+ _applyFrame(frame){
+  if(typeof frame==='string'){
+   if(this.img.dataset.src!==frame){
+    this.img.src=frame;
+    this.img.dataset.src=frame;
+    this.img.style.backgroundImage='';
+   }
+  }else if(frame&&frame.atlas){
+   const key=frame.atlas+'|'+frame.x+','+frame.y;
+   if(this.img.dataset.src!==key){
+    this.img.src=TRANSPARENT_PIXEL;
+    this.img.style.backgroundImage=`url(${frame.atlas})`;
+    this.img.style.backgroundPosition=`-${frame.x}px -${frame.y}px`;
+    this.img.style.width=frame.w+'px';
+    this.img.dataset.src=key;
+   }
+  }
+ }
+
+ update(dt,moving){
+  // Idle fidget: a small "look around" wobble after a few still seconds.
+  // Placeholder for real blink/tail frames later — cheap, still reads as alive.
+  if(moving||this.lockedClip){
+   this.idleTimer=0;this.lookActive=false;this.lookTimer=0;
+  }else{
+   this.idleTimer+=dt;
+   if(this.idleTimer>4){
+    this.lookTimer+=dt;
+    if(!this.lookActive && this.lookTimer>1.6){this.lookActive=true;this.lookTimer=0;}
+    else if(this.lookActive && this.lookTimer>0.6){this.lookActive=false;this.lookTimer=0;this.idleTimer=0;}
+   }
+  }
+
+  // Count down a committed one-shot clip; when it's done, hand control
+  // back to whatever ambient state the player is currently reporting.
+  if(this.lockedClip){
+   this.lockRemainingMs-=dt*1000;
+   if(this.lockRemainingMs<=0){
+    this.lockedClip=null;
+    this._applyAmbient();
+   }
+  }
+
+  this._render(dt,moving);
+ }
+
+ _render(dt,moving){
+  const{frames,mirror}=this._resolve();
+  this.mirrored=mirror;
+  this.frameTimer+=dt;
+  const frameDur=1/CAT_FPS; // deltaTime-driven — identical look at any framerate
+  if(this.frameTimer>=frameDur){
+   this.frameTimer-=frameDur;
+   this.frame=(this.frame+1)%frames.length;
+  }
+  this._applyFrame(frames[this.frame]);
+
+  // Bob + mirror + idle-look wobble — the only place cat.style.transform
+  // is ever touched. Foot-anchored (see #activeMascot's transform-origin),
+  // so this never depends on the sprite's own size.
+  if(!this._bobPhase)this._bobPhase=0;
+  this._bobPhase+=dt*(moving?7:2);
+  const bobAmount=moving?5:9;
+  const bobY=Math.sin(this._bobPhase)*bobAmount;
+  const wobble=this.lookActive?(this.dir==='left'?-6:6):0;
+  this.img.style.transform=`translate(-50%,calc(-100% + ${bobY.toFixed(1)}px)) scaleX(${mirror?-1:1}) rotate(${wobble}deg)`;
+ }
+}
+
+/* 4-directional resolver: dominant axis wins, matching top-down convention. */
+function resolveCatDirection(dx,dy){
+ if(Math.abs(dy)>Math.abs(dx))return dy<0?'up':'down';
+ return dx<0?'left':'right';
+}
+
+
+/* =====================================================================
+   BUILD1514 CONFIG — INTRO
+   Hidden Lagoon Studios splash. One config block, easy to swap the logo
+   or the water-ambience track later without touching the intro logic.
+   ===================================================================== */
+const INTRO_LOGO_SRC='images/intro/hiddenlagoonstudios.png';
+const INTRO_WATER_SOUND_SRC='audio/intro-water-ambience.mp3';
+const INTRO_BUBBLE_SPAWN_MS=550; // how often a new ambient bubble appears
+
+(function initIntro(){
+ const intro=document.getElementById('introScreen');
+ if(!intro)return;
+ const logo=document.getElementById('introLogo');
+ const water=document.getElementById('introWaterSound');
+ if(logo)logo.src=INTRO_LOGO_SRC;
+ if(water){
+  water.src=INTRO_WATER_SOUND_SRC;
+  water.volume=.35;
+  const p=water.play();
+  // Autoplay is blocked by most browsers until a user gesture — that's
+  // expected and harmless; the tap that dismisses the intro also
+  // unlocks audio for the rest of the game.
+  if(p&&p.catch)p.catch(()=>{});
+ }
+
+ function spawnIntroBubble(){
+  const b=document.createElement('div');
+  b.className='introBubble';
+  const size=8+Math.random()*22;
+  b.style.width=size+'px';
+  b.style.height=size+'px';
+  b.style.left=Math.random()*100+'%';
+  b.style.animationDuration=(6+Math.random()*5)+'s';
+  intro.appendChild(b);
+  setTimeout(()=>b.remove(),12000);
+ }
+ for(let i=0;i<6;i++)setTimeout(spawnIntroBubble,i*180);
+ const bubbleTimer=setInterval(spawnIntroBubble,INTRO_BUBBLE_SPAWN_MS);
+
+ let dismissed=false;
+ function dismissIntro(){
+  if(dismissed)return;
+  dismissed=true;
+  clearInterval(bubbleTimer);
+  intro.classList.add('introHide');
+  if(water){
+   const fadeStep=()=>{
+    if(water.volume>.03){water.volume=Math.max(0,water.volume-.03);requestAnimationFrame(fadeStep);}
+    else{water.pause();}
+   };
+   fadeStep();
+  }
+  setTimeout(()=>intro.remove(),1000);
+ }
+ intro.addEventListener('click',dismissIntro);
+ intro.addEventListener('touchstart',dismissIntro,{passive:true});
+ document.addEventListener('keydown',dismissIntro,{once:true});
+})();
+
+/* =====================================================================
+   BUILD1515 CONFIG — SOUND
+   Fixed list of sound effects, same philosophy as SELFIE_CAM_IMAGES:
+   exact files, no guessing. Drop the real files at these paths and
+   they'll just start working — missing files fail silently (no console
+   spam, no broken game).
+   ===================================================================== */
+const SOUND_CONFIG={
+ click:'audio/ui-click.mp3',
+ tab:'audio/ui-tab.mp3',
+ scan:'audio/scanner-ping.mp3',
+ found:'audio/scanner-found.mp3',
+ unlock:'audio/card-unlock.mp3'
+};
+const SOUND_VOLUME=.4;
+
+const AudioManager={
+ _cache:{},
+ _get(name){
+  if(!SOUND_CONFIG[name])return null;
+  if(!this._cache[name]){
+   const a=new Audio(SOUND_CONFIG[name]);
+   a.preload='auto';
+   this._cache[name]=a;
+  }
+  return this._cache[name];
+ },
+ play(name,vol){
+  const base=this._get(name);
+  if(!base)return;
+  // clone so overlapping plays (e.g. rapid taps) don't cut each other off
+  const node=base.cloneNode(true);
+  node.volume=vol!=null?vol:SOUND_VOLUME;
+  const p=node.play();
+  if(p&&p.catch)p.catch(()=>{}); // missing file / autoplay block — ignore
+ }
+};
+
+// One delegated listener for every button in the game: nav gets its own
+// "tab" sound, the scanner has its own dedicated sound (played from
+// demoScan itself, alongside the outcome), everything else gets a soft
+// generic click.
+document.addEventListener('click',e=>{
+ const btn=e.target.closest('button');
+ if(!btn)return;
+ if(btn.id==='demoScanBtn')return;
+ if(btn.closest('#mainNav')){AudioManager.play('tab');return;}
+ AudioManager.play('click');
+},true);
+
+/* =====================================================================
+   BUILD1500 MASTER SCRIPT
+   Sections below mirror the project's established layout. Engine/State/
+   Services/World/NPC logic is carried over from BUILD1415 essentially
+   unchanged — only consolidated into one place per system where it used
+   to be split across several separate <script> patches. UI-facing
+   render functions (HOME/COLLECTION/EXPLORE/RADIO) are new,
+   built to render from the same Game.state and the same manager APIs
+   the engine already exposes.
+   ===================================================================== */
+
+const KEY='gosnuggiez';
+
+const Assets={
+  cats:{
+    beach:'beachcat_idle.png',
+    punk:'frilagdpunkkatt.png',
+    golf:'frilagdgolfkatt.png',
+    desert:'frilagddesertdave.png'
+  },
+  fish:{macke:'makrill/makrill_glad.png'}
+};
+
+function asset(path){ return path; }
+
+
+
+/* ========= ENGINE ========= */
+window.Engine=window.Engine||{};
+
+Engine.Services={registry:{},register(n,o){this.registry[n]=o;return o;},get(n){return this.registry[n]}};
+
+Engine.Events={listeners:{},on(n,f){(this.listeners[n]??=[]).push(f);},off(n,f){this.listeners[n]=(this.listeners[n]||[]).filter(x=>x!==f);},emit(n,d){(this.listeners[n]||[]).forEach(fn=>{try{fn(d)}catch(e){console.error(e)}});}};
+
+Engine.WorldLoop={
+ systems:[],
+ running:false,
+ register(system){if(system&&typeof system.update==="function"){this.systems.push(system)}return system},
+ start(){if(this.running)return;this.running=true;this.lastTime=performance.now();const tick=now=>{if(!this.running)return;const dt=(now-this.lastTime)/1000;this.lastTime=now;this.systems.forEach(system=>{try{system.update(dt)}catch(err){console.error("WorldLoop:",err)}});Engine.Renderer.flush();requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+};
+
+// The one place allowed to touch the DOM/canvas for anything driven by
+// the WorldLoop. Systems compute state in update(dt); the renderer
+// decides when to actually paint (once per frame, batched).
+Engine.Renderer={
+ ops:[],
+ set(el,props){
+   if(!el||!props)return;
+   this.ops.push(()=>{
+     for(const k in props){
+       if(k==='text')el.textContent=props[k];
+       else if(k==='html')el.innerHTML=props[k];
+       else el.style[k]=props[k];
+     }
+   });
+ },
+ enqueue(fn){if(typeof fn==='function')this.ops.push(fn);},
+ flush(){
+   Engine.Renderer.__lastOpsCount=this.ops.length;
+   for(const op of this.ops){try{op()}catch(err){console.error("Renderer:",err)}}
+   this.ops.length=0;
+ }
+};
+
+Engine.EventManager={
+ intervals:[],
+ addInterval(fn,ms=10000){const obj={timer:0,update(dt){this.timer+=dt;if(this.timer<ms/1000)return;this.timer=0;fn()}};Engine.WorldLoop.register(obj);this.intervals.push(obj);return obj}
+};
+
+Engine.AssetManager={
+ cache:{},
+ preload(list=[]){list.forEach(src=>{if(this.cache[src])return;const i=new Image();i.src=src;this.cache[src]=i})},
+ // Tries each candidate path in order. Logs every attempt so a 404 is
+ // never silent — open DevTools to see exactly which path won.
+ resolveImage(candidates,label,onDone){
+   candidates=Array.isArray(candidates)?candidates:[candidates];
+   let i=0;
+   const img=new Image();
+   const tryNext=()=>{
+     if(i>=candidates.length){
+       console.error('[AssetManager] '+label+': ALL candidate paths failed to load:',candidates);
+       onDone(null,null);
+       return;
+     }
+     const path=candidates[i++];
+     img.onload=()=>{onDone(img,path);};
+     img.onerror=()=>{tryNext();};
+     img.src=path;
+   };
+   tryNext();
+   return img;
+ }
+};
+
+Engine.WorldManager={spawn(entity){Engine.WorldLoop.register(entity);return entity;}};
+
+Engine.EntityManager={
+ entities:new Map(),
+ add(e){if(e&&e.id)this.entities.set(e.id,e);return e;},
+ get(id){return this.entities.get(id);},
+ remove(id){this.entities.delete(id);},
+ all(){return [...this.entities.values()]},
+ registerNPC(id,name){return this.add({id:id,name:name,type:'npc'});}
+};
+
+Engine.init=function(){
+ if(Engine.__inited)return;
+ Engine.__inited=true;
+ document.dispatchEvent(new CustomEvent('engine:init'));
+};
+if(document.readyState==='loading'){
+ document.addEventListener('DOMContentLoaded',()=>Engine.init(),{once:true});
+}else{
+ Engine.init();
+}
+
+// ===== SINGLE SOURCE OF TRUTH FOR "WHERE DOES WORLD STUFF GO" =====
+function worldRoot(){
+ return document.getElementById('homeWorld')||document.body;
+}
+
+// ===== SINGLE SOURCE OF TRUTH FOR STEVE'S IMAGE PATH =====
+const STEVE_SPRITE_CANDIDATES=[
+ 'assets/09_steve.jpg'
+];
+window.wireImgCascade=function(imgEl,candidates,label){
+ let i=0;
+ function tryNext(){
+   if(i>=candidates.length){console.error('['+label+'] all candidate paths 404\'d:',candidates);return;}
+   const p=candidates[i++];
+   imgEl.onerror=()=>{tryNext();};
+   imgEl.src=p;
+ }
+ tryNext();
+};
+
+/* ========= STATE ========= */
+const Game={
+ managers:{},
+ state:{homeWorldPaused:false},
+ register(name,obj){this.managers[name]=obj;return obj},
+ get(name){return Engine.Services?.get(name) || this.managers[name]}
+};
+
+/* ========= SAVE ========= */
+const SaveManager={
+ save(){localStorage.setItem(KEY,JSON.stringify(Game.state))},
+ load(){Game.state=JSON.parse(localStorage.getItem(KEY)||'{}');return Game.state},
+ export(){return JSON.stringify(Game.state)},
+ import(data){Game.state=typeof data==='string'?JSON.parse(data):data;this.save()},
+ migrate(){
+   Game.state.player??={};
+   Game.state.world??={};
+   Game.state.inventory??={};
+   Game.state.journal??=[];
+   Game.state.lore??={};
+   Game.state.cards??=[];
+   Game.state.settings??={};
+   Game.state.collection??={owned:[]};
+   Game.state.demo??={scans:0};
+   return Game.state
+ }
+};
+
+
+const CRAB_IMAGE='krabba/krabban_arg.png';
+/* ========= WORLD ========= */
+// Every area's background image path(s), NPCs, and loot table — single
+// source of truth. Explore/renderExplore() and AreaManager both read
+// from this and only this; nothing else hardcodes an area background
+// or loot list.
+Engine.AreaAssets={
+ oldpier:{
+  key:'oldpier',name:'Old Pier',emoji:'🏝️',
+  backgrounds:['oldpier/evening-pier.webp','assets/01_old_pier.jpg'],
+  npcs:['steve','sealSven'],
+  searchLabel:'🎣 Fish',
+  loot:[
+   {id:'mackerel',label:'🐟 Makrill',image:'makrill/makrill_glad.png',xp:15,firstCatch:true},
+   {id:'feather',label:'🪶 Steve\'s Feather',xp:20},
+   {id:'woodenCrate',label:'📦 Wooden Crate',xp:30}
+  ]
+ },
+ hiddencove:{
+  key:'hiddencove',name:'Hidden Cove',emoji:'🌊',
+  backgrounds:['hiddencove/hidden-cove-hero.webp','assets/03_hidden_cove.jpg'],
+  npcs:['octoOlle'],
+  searchLabel:'🤿 Dive',
+  loot:[
+   {id:'radioPart',label:'📻 Radio Part',xp:20},
+   {id:'seashell',label:'🐚 Snäcka',xp:15}
+  ]
+ },
+ punkdunes:{
+  key:'punkdunes',name:'Punk Dunes',emoji:'🌵',
+  backgrounds:['punkdunes/punk-desert-cat.webp','assets/02_dunes.jpg'],
+  npcs:['snackBandit'],
+  searchLabel:'⛏️ Dig',
+  loot:[
+   {id:'mysteryPack',label:'🎁 Mystery Pack',xp:25},
+   {id:'fries',label:'🍟 Stolen Fries',xp:10}
+  ]
+ },
+ lostlighthouse:{
+  key:'lostlighthouse',name:'Lost Lighthouse',emoji:'🗼',
+  backgrounds:['lostlighthouse/lost-lighthouse-hero.webp','assets/10_lighthouse.jpg'],
+  npcs:['signalSam'],
+  searchLabel:'📡 Tune Radio',
+  loot:[
+   {id:'signalChip',label:'💾 Signal Chip',xp:30}
+  ]
+ }
+};
+
+// ===== AREA MANAGER — everything about entering/leaving/acting in an area =====
+// The only code allowed to touch #areaView.
+const AreaManager={
+ current:null,
+ enter(key){
+  const cfg=Engine.AreaAssets[key];
+  if(!cfg)return;
+  this.current=key;
+  Game.state.homeWorldPaused=true;
+  document.getElementById('exploreGrid').style.display='none';
+  document.getElementById('areaView').style.display='block';
+  document.getElementById('areaViewTitle').textContent=cfg.emoji+' '+cfg.name.toUpperCase();
+  const resultEl=document.getElementById('areaViewResult');
+  resultEl.textContent='Entered area successfully. Local world simulation active.';
+  const actionBtn=document.getElementById('areaViewActionBtn');
+  if(actionBtn)actionBtn.textContent=cfg.searchLabel||'🔎 Search';
+
+  const bg=document.getElementById('areaViewBg');
+  bg.style.backgroundImage=''; // clear any stale background from the previous area first
+  Engine.AssetManager.resolveImage(cfg.backgrounds,cfg.name+' background',(img,path)=>{
+   if(path)bg.style.backgroundImage="url('"+path+"')";
+   else bg.style.backgroundImage='linear-gradient(160deg,#0d3350,#04121f)'; // every candidate failed — never leave it blank
+  });
+
+  this.renderNPCs();
+  this.markVisited(key);
+
+  const hud=document.getElementById('scannerHud');
+  if(hud)hud.style.display='block';
+
+  Game.get('journal')?.add(cfg.emoji+' Entered '+cfg.name);
+  Game.get('save').save();
+  renderHome();
+  setTimeout(()=>AreaManager.scan(),300);
+ },
+ leave(){
+  document.getElementById('areaView').style.display='none';
+  document.getElementById('exploreGrid').style.display='';
+  const hud=document.getElementById('scannerHud');
+  if(hud)hud.style.display='none';
+  Game.state.homeWorldPaused=false;
+  this.current=null;
+ },
+ renderNPCs(){
+  const cfg=Engine.AreaAssets[this.current];
+  const list=document.getElementById('areaNpcList');
+  if(!cfg||!list)return;
+  list.innerHTML='';
+  if(!cfg.npcs.length){
+   const li=document.createElement('li');
+   li.textContent='Quiet right now — nothing here yet.';
+   list.appendChild(li);
+   return;
+  }
+  cfg.npcs.forEach(id=>{
+   const npc=Game.get('npc').get(id);
+   const li=document.createElement('li');
+   li.textContent=npc?(npc.name+' — '+npc.mood+', '+npc.activity):id;
+   list.appendChild(li);
+  });
+ },
+ markVisited(key){
+  Game.state.world.visitedAreas=Game.state.world.visitedAreas||[];
+  if(!Game.state.world.visitedAreas.includes(key)){
+   Game.state.world.visitedAreas.push(key);
+  }
+ },
+ // Scans the CURRENT AREA's own NPCs/loot table only.
+ scan(){
+  const cfg=Engine.AreaAssets[this.current];
+  if(!cfg)return;
+  if(this.current==='hiddencove')window.HL_herringSchool?.scatter();
+  const hud=document.getElementById('scannerHud');
+  if(hud)hud.style.display='block';
+  const pool=[
+   ...cfg.npcs.map(id=>({type:'npc',id})),
+   ...cfg.loot.map(l=>({type:'loot',id:l.id}))
+  ];
+  if(!pool.length)return;
+  const pick=pool[Math.floor(Math.random()*pool.length)];
+  const dist=8+Math.floor(Math.random()*60);
+  let label;
+  if(pick.type==='npc'){
+   const npc=Game.get('npc').get(pick.id);
+   label=(npc?npc.name:pick.id).toUpperCase();
+  }else{
+   const loot=cfg.loot.find(l=>l.id===pick.id);
+   label=(loot?loot.label:pick.id).toUpperCase();
+  }
+  const tgt=document.getElementById('scannerTarget');
+  const st=document.getElementById('scannerState');
+  const d=document.getElementById('scannerDist');
+  const f=document.getElementById('scannerFill');
+  if(tgt)Engine.Renderer.set(tgt,{text:'Target: '+label});
+  if(st)Engine.Renderer.set(st,{text:'State: '+(pick.type==='npc'?'TRACKING':'DETECTED')});
+  if(d)Engine.Renderer.set(d,{text:'Distance: '+dist+' m'});
+  if(f)Engine.Renderer.set(f,{width:Math.max(10,100-dist)+'%'});
+ },
+ // The area's flavored action (Fish/Dive/Dig/Tune Radio) — always draws
+ // from that area's own loot table. This is the "Loot" step of the
+ // Explore -> Scan -> Loot -> XP -> Booster -> Card -> Unlock -> New Area
+ // demo loop.
+ search(){
+  const cfg=Engine.AreaAssets[this.current];
+  if(!cfg||!cfg.loot.length)return;
+  if(this.current==='hiddencove')window.HL_herringSchool?.scatter();
+  let item;
+if(cfg.key==='oldpier' && !(Game.state.collection.owned||[]).includes('mackerel')){
+  item=cfg.loot.find(x=>x.id==='mackerel')||cfg.loot[0];
+}else{
+  item=cfg.loot[Math.floor(Math.random()*cfg.loot.length)];
+}
+  if(item.firstCatch && !Game.state.collection.owned.includes('mackerel')){
+    Game.state.collection.owned.push('mackerel');
+    playMackeFirstCatch();
+    const t=document.getElementById('hlToast');
+    if(t){
+      t.textContent='NEW LAGOON CREW DISCOVERY!\n🐟 MACKE MAKRILL\n+15 XP';
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),2600);
+    }
+}
+Game.get('inventory').add(item.id,1);
+  Game.get('xp').add(item.xp||10);
+  Game.get('journal')?.add(item.label+' found at '+cfg.name+' (+'+(item.xp||10)+' XP)');
+  const resultEl=document.getElementById('areaViewResult');
+  if(resultEl)resultEl.textContent=item.label+' collected! +'+(item.xp||10)+' XP';
+  Game.get('save').save();
+  renderHome();
+  renderCollection();
+ }
+};
+
+function playMackeFirstCatch(){
+ const fx=document.getElementById('mackeCatchFx');
+ if(!fx)return;
+ fx.classList.remove('show');
+ void fx.offsetWidth;
+ fx.classList.add('show');
+ setTimeout(()=>fx.classList.remove('show'),1500);
+}
+
+window.AreaManager=AreaManager;
+
+/* ========= NPC ========= */
+const LivingNPCManager={
+ migrate(){
+  Game.state.world??={};
+  Game.state.world.npcs??={};
+  const n=Game.state.world.npcs;
+  n.steve??={name:'Steve',currentLocation:Game.state.steveLocation||'Old Pier',home:'Old Pier',favoriteLocations:['Old Pier','Hidden Cove'],mood:'Curious',activity:'Looking for snacks',lastMove:Date.now()};
+  n.signalSam??={name:'Signal Sam',currentLocation:'Lost Lighthouse',home:'Lost Lighthouse',favoriteLocations:['Lost Lighthouse','Punk Dunes'],mood:'Listening',activity:'Scanning radio',lastMove:Date.now()};
+  n.snackBandit??={name:'Snack Bandit',currentLocation:'Punk Dunes',home:'Punk Dunes',favoriteLocations:['Punk Dunes','Hidden Cove'],mood:'Hungry',activity:'Stealing fries',lastMove:Date.now()};
+  n.sealSven??={name:'Seal Sven',currentLocation:'Old Pier',home:'Old Pier',favoriteLocations:['Old Pier'],mood:'Relaxed',activity:'Sunbathing',lastMove:Date.now()};
+  n.octoOlle??={name:'Octo Olle',currentLocation:'Hidden Cove',home:'Hidden Cove',favoriteLocations:['Hidden Cove'],mood:'Sneaky',activity:'Hiding among the kelp',lastMove:Date.now()};
+ },
+ get(id){return Game.state.world.npcs[id]},
+ move(id,place){const n=this.get(id);if(!n)return;n.currentLocation=place;n.lastMove=Date.now();if(id==='steve')Game.state.steveLocation=place},
+ getAt(place){return Object.values(Game.state.world.npcs).filter(n=>n.currentLocation===place)},
+ moods:['Curious','Hungry','Relaxed','Sleeping','Investigating','Happy','Lost'],
+ randomMood(){return this.moods[Math.floor(Math.random()*this.moods.length)]},
+ tick(){
+  Object.entries(Game.state.world.npcs).forEach(([id,npc])=>{
+    if(Math.random()<0.45){
+      npc.currentLocation=npc.favoriteLocations[Math.floor(Math.random()*npc.favoriteLocations.length)];
+      npc.lastMove=Date.now();
+      npc.mood=this.randomMood();
+      if(id==='steve')Game.state.steveLocation=npc.currentLocation;
+      Game.get('journal').add('👣 '+npc.name+' moved to '+npc.currentLocation)
+    }
+  });
+  Game.get('save').save();
+  Game.get('ui').refresh();
+ }
+};
+
+/* ========= SERVICES (managers not already covered above) ========= */
+const Engine_UIManager={
+ showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const tab=document.getElementById(id);
+  if(tab)tab.classList.add('active');
+  document.querySelectorAll('#mainNav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+
+  // BUILD1528: the living world (cat, camera, crabs, Old Pier landmark)
+  // now belongs to Explore — Explore is the game, Home is the menu.
+  const exploring=id==='explore';
+  const fish=document.getElementById('fishLayer');
+  if(fish)fish.style.display=exploring?'':'none';
+  // Single source of truth for world visibility.
+  const world=document.getElementById('homeWorld');
+  if(world)world.classList.toggle('hlHidden',!exploring);
+
+  if(id==='collection')renderCollection();
+  if(id==='explore')renderExplore();
+  if(id==='radio')renderRadio();
+
+  window.scrollTo(0,0);
+ },
+ renderHome(){renderHome()},
+ refresh(){
+  if(Game.state.player.rescues>=300) Game.state.player.desertDaveUnlocked=true;
+  this.renderHome();
+  applyTheme();
+  applyCharacterGlow();
+ }
+};
+Engine.UIManager=Engine_UIManager;
+
+const XPManager={
+ add(amount){
+  Game.state.player.xp=(Game.state.player.xp||0)+amount;
+  Game.get('save').save();
+  Game.get('ui').refresh();
+ }
+};
+
+const InventoryManager={add(item,count=1){if(!Game.state.inventory[item])Game.state.inventory[item]=0;Game.state.inventory[item]+=count;Game.get('save').save();Game.get('ui').refresh();}};
+
+const JournalManager={
+ add(entry){
+  Game.state.journal.push(entry);
+  if(Game.state.journal.length>100)Game.state.journal.shift();
+  Game.get('save').save();
+ }
+};
+
+const PlayerManager={
+ addXP(amount){return Game.get('xp').add(amount)},
+ rescue(){
+  Game.state.player.rescues=(Game.state.player.rescues||0)+1;
+  Game.get('journal').add('Rescue #'+Game.state.player.rescues);
+  Game.get('save').save();
+  Game.get('ui').refresh();
+ }
+};
+
+const RadioManager={
+ reports:[
+  '📻 Steve spotted near Old Pier.',
+  '📻 Strange signal detected near Lost Lighthouse.',
+  '📻 Shelter Radio requests a scan.',
+  '📻 Search Punk Dunes today'
+ ],
+ broadcast(){
+  const r=this.reports[Math.floor(Math.random()*this.reports.length)];
+  const el=document.getElementById('radioReport');
+  if(el)el.innerHTML='<b>Latest Broadcast</b><br><br>'+r;
+  Game.get('journal').add('📻 '+r);
+  Game.get('save').save();
+ }
+};
+
+// ===== REGISTRATION =====
+Engine.Services.register('save',SaveManager);
+Engine.Services.register('ui',Engine.UIManager);
+Engine.Services.register('xp',XPManager);
+Engine.Services.register('npc',LivingNPCManager);
+Engine.Services.register('inventory',InventoryManager);
+Engine.Services.register('journal',JournalManager);
+Engine.Services.register('player',PlayerManager);
+Engine.Services.register('radio',RadioManager);
+
+/* ========= WORLD: ambient entities ========= */
+class BaseEntity{
+ update(dt){}
+ // Which DOM element(s) represent this entity — used by
+ // ConditionalVisibilityDirector to show/hide based on NPC conditions.
+ // Default: nothing to hide. Override in entities that want to support
+ // conditions (see MackerelEntity, CrabEntity, etc. below).
+ getVisibilityElements(){return[];}
+}
+
+/* =====================================================================
+   BUILD1531 CONFIG — WORLD CLOCK
+   Single source of truth for "what time and season is it". Nothing
+   else should track its own day/night timer — they read WorldClock
+   instead. Deliberately no visual effects here (that's BUILD1532 for
+   lighting and BUILD1533 for weather) — just the clock itself, plus a
+   temporary debug readout so it's actually possible to verify it's
+   ticking before anything reacts to it visually.
+   ===================================================================== */
+const WORLD_CLOCK_CONFIG={
+ dayLengthMinutes:12, // one full in-game day = 12 real minutes
+ startHour:9,         // game starts mid-morning
+ seasonLengthDays:7    // short on purpose for a demo — plenty of season changes without waiting long
+};
+
+const WorldClock={
+ hours:WORLD_CLOCK_CONFIG.startHour,
+ dayCount:0,
+ seasonIndex:0,
+ seasons:['summer','autumn','winter','spring'], // starts in summer — Swedish west-coast vibe
+ update(dt){
+  const hoursPerSecond=24/(WORLD_CLOCK_CONFIG.dayLengthMinutes*60);
+  this.hours+=hoursPerSecond*dt;
+  if(this.hours>=24){
+   this.hours-=24;
+   this.dayCount++;
+   if(this.dayCount>0 && this.dayCount%WORLD_CLOCK_CONFIG.seasonLengthDays===0){
+    this.seasonIndex=(this.seasonIndex+1)%this.seasons.length;
+   }
+  }
+ },
+ getHour(){return this.hours;},
+ getSeason(){return this.seasons[this.seasonIndex];},
+ getPhase(){
+  const h=this.hours;
+  if(h>=5&&h<8)return'morning';
+  if(h>=8&&h<17)return'day';
+  if(h>=17&&h<21)return'evening';
+  return'night';
+ },
+ isNight(){return this.getPhase()==='night';},
+ isDay(){return this.getPhase()==='day';},
+ formatTime(){
+  const h=Math.floor(this.hours);
+  const m=Math.floor((this.hours-h)*60);
+  return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+ }
+};
+
+/* Ticks WorldClock every frame through the same WorldLoop as everything
+   else — deliberately NOT gated on Game.state.homeWorldPaused, since
+   the world's clock should keep moving even while the player is in a
+   menu or area view, same as a real day/night cycle would. */
+class WorldClockEntity extends BaseEntity{
+ update(dt){
+  WorldClock.update(dt);
+  const debug=document.getElementById('engineDebugHud');
+  if(debug)debug.textContent='🕐 '+WorldClock.formatTime()+'  ·  '+WorldClock.getPhase()+'  ·  '+WorldClock.getSeason()+'  ·  '+(typeof WeatherManager!=='undefined'?WeatherManager.get():'—')+'\n(temporary debug readout —\nremove once weather/lighting are\nvisible enough on their own)';
+ }
+}
+
+class FishSchoolEntity extends BaseEntity{
+ constructor(layer){
+   super(); this.layer=layer; this.fish=[];
+   for(let i=0;i<8;i++){
+     const f=document.createElement('div');
+     f.className='lagoonFish';
+     f.textContent=i%2?'🐟':'🐠';
+     this.layer.appendChild(f);
+     this.fish.push({el:f,off:i*28});
+   }
+   this.t=0;
+ }
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+   this.t+=dt*70;
+   this.fish.forEach((f,i)=>{
+     let x=((this.t+f.off)%(window.innerWidth+200))-100;
+     let y=220+Math.sin((this.t+f.off)/35+i)*35;
+     Engine.Renderer.set(f.el,{left:x+'px',top:y+'px'});
+   });
+ }
+ getVisibilityElements(){return this.fish.map(f=>f.el);}
+}
+
+class CrabEntity extends BaseEntity{
+ constructor(layer){
+  super();
+  this.layer=layer;
+  this.crabs=[];
+  for(let i=0;i<6;i++){
+    const img=document.createElement('img');
+    img.src=CRAB_IMAGE;
+    img.onerror=()=>{img.style.display='none';};
+    img.className='krabbeNpc';
+    img.style.position='absolute';
+    const bottomOffset=54+Math.random()*24; // small vertical spread along the beach strip
+    img.style.bottom=bottomOffset+'px';
+    img.style.width=(26+Math.random()*18)+'px';
+    layer.appendChild(img);
+    const dir=Math.random()<0.5?1:-1;
+    const x=dir===1?(-120-i*90):(WORLD_W+120+i*90);
+    img.style.left=x+'px';
+    this.crabs.push({el:img,x,dir,v:20+Math.random()*25,bottomOffset,pauseRemaining:0});
+  }
+ }
+ update(dt){
+  if(Game.state.homeWorldPaused)return;
+  const player=window.HL_playerWorldPos;
+  for(const c of this.crabs){
+    const crabY=WORLD_H-c.bottomOffset;
+    let speed=c.v;
+    if(player){
+     const nearY=Math.abs(player.y-crabY)<160;
+     const nearX=Math.abs(player.x-c.x)<90;
+     if(nearY&&nearX){speed=c.v*3.2;c.pauseRemaining=0;} // startled scurry cancels any pause
+    }
+    if(c.pauseRemaining>0){
+     c.pauseRemaining-=dt;
+     speed=0;
+    }else if(Math.random()<dt*0.04){
+     c.pauseRemaining=1+Math.random()*2; // occasional short rest, ~4% chance per second
+    }
+    c.x+=c.dir*speed*dt;
+    if(c.dir===1 && c.x>WORLD_W+80){
+      c.x=-80-Math.random()*200;
+      c.el.style.width=(26+Math.random()*18)+'px';
+    }else if(c.dir===-1 && c.x<-80){
+      c.x=WORLD_W+80+Math.random()*200;
+      c.el.style.width=(26+Math.random()*18)+'px';
+    }
+    Engine.Renderer.set(c.el,{left:c.x+'px',transform:c.dir===-1?'scaleX(-1)':'scaleX(1)'});
+  }
+ }
+ getVisibilityElements(){return this.crabs.map(c=>c.el);}
+}
+
+/* ========= MACKE MAKRILL — swims near Old Pier, jumps occasionally =========
+   Same shape as every other living thing here: constructor(anchor), update(dt).
+   No AI needed — a sine-wave drift plus a timed jump arc reads as "alive"
+   and that's the whole job. Lives in world-space next to the Old Pier
+   landmark, so the player runs into him just by walking over. */
+class MackerelEntity extends BaseEntity{
+ constructor(anchorX,anchorY){
+  super();
+  this.el=document.getElementById('mackeMackerel');
+  this.anchorX=anchorX;
+  this.anchorY=anchorY;
+  this.t=0;
+ }
+ update(dt){
+  if(!this.el||Game.state.homeWorldPaused)return;
+  this.t+=dt;
+  const x=this.anchorX+Math.sin(this.t*0.7)*70;
+  let y=this.anchorY;
+  let rot=0;
+  const ph=this.t%8;
+  if(ph>5.8){
+   let p=(ph-5.8)/2.2;
+   if(p>1)p=1;
+   y-=Math.sin(p*Math.PI)*90;
+   rot=-55+110*p;
+  }
+  Engine.Renderer.set(this.el,{left:x+'px',top:y+'px',transform:'rotate('+rot+'deg)'});
+ }
+ getVisibilityElements(){return[this.el];}
+}
+
+class GullFlockEntity extends BaseEntity{
+ constructor(){
+   super();
+   this.el=document.createElement('div');
+   this.el.style.position='fixed';
+   this.el.style.top='70px';
+   this.el.style.left='-200px';
+   this.el.style.fontSize='26px';
+   this.el.textContent='🐦 🐦 🐦';
+   worldRoot().appendChild(this.el);
+   this.x=-200;
+ }
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+   this.x+=120*dt;
+   if(this.x>window.innerWidth+200)this.x=-220;
+   Engine.Renderer.set(this.el,{left:this.x+'px'});
+ }
+ getVisibilityElements(){return[this.el];}
+}
+
+class WaveManager extends BaseEntity{
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+   Engine.Renderer.set(document.body,{backgroundPosition:'0px '+(performance.now()/80%40)+'px'});
+ }
+}
+
+class SealSvenEntity extends BaseEntity{
+ constructor(){
+   super();
+   this.el=document.createElement('img');
+   this.el.src='sealsven/seal_sven_cool.png';
+   this.el.className='sealNpc';
+   this.el.style.position='fixed';
+   this.el.style.left='140px';
+   this.el.style.top='140px';
+   this.el.style.zIndex='6';
+   worldRoot().appendChild(this.el);
+   this.x=140; this.t=0;
+ }
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+   this.t+=dt;
+   this.x+=20*dt;
+   if(this.x>window.innerWidth-140) this.x=140;
+   const y=140+Math.sin(this.t*1.5)*18;
+   Engine.Renderer.set(this.el,{left:this.x+'px',top:y+'px'});
+ }
+ getVisibilityElements(){return[this.el];}
+}
+
+/* =====================================================================
+   BUILD1532 — DAY/NIGHT LIGHTING
+   Retires DayNightManager's crude 2-state brightness toggle. This is
+   now the ONLY system that ever touches document.body's light filter
+   — having two things write to the same element was exactly the kind
+   of conflict we're trying to avoid.
+
+   Key-frame interpolation across the day (not realistic solar math —
+   charm over realism, per the brief): warm tint at sunrise/sunset,
+   neutral at midday, cool and dim at night. The same lerp/lerpColor
+   helpers are generic on purpose — BUILD1533's weather transitions can
+   reuse them instead of writing their own.
+   ===================================================================== */
+const LIGHT_KEYFRAMES=[
+ {h:0, brightness:.55,saturate:.7, tint:'rgba(20,30,60,.35)', sun:.05},
+ {h:5, brightness:.6, saturate:.75,tint:'rgba(20,30,60,.30)', sun:.1},
+ {h:7, brightness:.85,saturate:1.1,tint:'rgba(255,150,80,.18)',sun:.4},
+ {h:9, brightness:1.0, saturate:1.0, tint:'rgba(255,255,255,0)', sun:.6},
+ {h:13,brightness:1.08,saturate:1.05,tint:'rgba(255,255,255,0)', sun:1},
+ {h:17,brightness:1.0, saturate:1.0, tint:'rgba(255,255,255,0)', sun:.7},
+ {h:19,brightness:.85,saturate:1.15,tint:'rgba(255,120,60,.22)', sun:.35},
+ {h:21,brightness:.65,saturate:.85, tint:'rgba(40,40,90,.3)',   sun:.15},
+ {h:24,brightness:.55,saturate:.7, tint:'rgba(20,30,60,.35)', sun:.05}
+];
+function lerp(a,b,t){return a+(b-a)*t;}
+function lerpColor(c1,c2,t){
+ const p=s=>s.match(/[\d.]+/g).map(Number);
+ const[r1,g1,b1,a1]=p(c1),[r2,g2,b2,a2]=p(c2);
+ return`rgba(${Math.round(lerp(r1,r2,t))},${Math.round(lerp(g1,g2,t))},${Math.round(lerp(b1,b2,t))},${lerp(a1,a2,t).toFixed(3)})`;
+}
+function computeLight(hour){
+ let i=0;
+ while(i<LIGHT_KEYFRAMES.length-1 && LIGHT_KEYFRAMES[i+1].h<hour)i++;
+ const a=LIGHT_KEYFRAMES[i],b=LIGHT_KEYFRAMES[Math.min(i+1,LIGHT_KEYFRAMES.length-1)];
+ const span=(b.h-a.h)||1;
+ const t=Math.max(0,Math.min(1,(hour-a.h)/span));
+ return{
+  brightness:lerp(a.brightness,b.brightness,t),
+  saturate:lerp(a.saturate,b.saturate,t),
+  tint:lerpColor(a.tint,b.tint,t),
+  sun:lerp(a.sun,b.sun,t)
+ };
+}
+
+class LightingManager extends BaseEntity{
+ constructor(){
+  super();
+  if(!document.getElementById('lightTint')){
+   const el=document.createElement('div');
+   el.id='lightTint';
+   el.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:1;';
+   document.body.appendChild(el);
+  }
+ }
+ update(dt){
+  const light=computeLight(WorldClock.getHour());
+  Engine.Renderer.set(document.body,{filter:`brightness(${light.brightness.toFixed(3)}) saturate(${light.saturate.toFixed(3)})`});
+  const tintEl=document.getElementById('lightTint');
+  if(tintEl)Engine.Renderer.set(tintEl,{backgroundColor:light.tint});
+  // Water sparkle follows the sun — brighter glitter at midday, calm at night.
+  // LightingManager owns this too, since it's the sun driving it, not the water.
+  const rays=document.querySelector('.sunRays');
+  const caustics=document.querySelector('.waterCaustics');
+  if(rays)Engine.Renderer.set(rays,{opacity:(0.25+light.sun*0.85).toFixed(2)});
+  if(caustics)Engine.Renderer.set(caustics,{opacity:(0.12+light.sun*0.35).toFixed(2)});
+ }
+}
+
+class TideManager extends BaseEntity{
+ constructor(){super();this.t=0;}
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+   this.t+=dt;
+   const layer=document.getElementById('fishLayer');
+   if(layer)Engine.Renderer.set(layer,{transform:`translate(${Math.sin(this.t*0.6)*10}px,${Math.sin(this.t*0.3)*3}px)`});
+ }
+}
+
+/* =====================================================================
+   BUILD1533 — WEATHER MANAGER
+   Single active weather at a time: clear, cloudy, rain, fog, snow.
+   (Storm is the same idea, just not needed for the demo yet.) Everything
+   else should query WeatherManager.get()/is() instead of deciding its
+   own weather. Snow can only be rolled during winter — reads the
+   season straight from WorldClock, the one shared clock.
+   ===================================================================== */
+const WEATHER_TYPES=['clear','clear','cloudy','rain','fog']; // 'clear' weighted heavier — charm over chaos
+const WeatherManager={
+ current:'clear',
+ changeTimer:0,
+ nextChangeIn:75,
+ _rollNext(){
+  const pool=WEATHER_TYPES.slice();
+  if(WorldClock.getSeason()==='winter')pool.push('snow','snow');
+  this.current=pool[Math.floor(Math.random()*pool.length)];
+  this.nextChangeIn=60+Math.random()*90; // next possible change in 60-150s
+ },
+ update(dt){
+  this.changeTimer+=dt;
+  if(this.changeTimer>=this.nextChangeIn){
+   this.changeTimer=0;
+   this._rollNext();
+  }
+ },
+ get(){return this.current;},
+ is(type){return this.current===type;}
+};
+
+/* Owns every weather VISUAL — overlay tint, the shared lagoonFog
+   element's intensity, and falling rain/snow particles. Spawns its own
+   particles straight out of update(dt) instead of a separate
+   setInterval, so there's still just the one loop driving everything. */
+class WeatherEntity extends BaseEntity{
+ constructor(){
+  super();
+  this.lastWeather=null;
+  this.particleTimer=0;
+  if(!document.getElementById('weatherOverlay')){
+   const el=document.createElement('div');
+   el.id='weatherOverlay';
+   el.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:3;transition:background-color 3s linear;';
+   document.body.appendChild(el);
+  }
+ }
+ _tintFor(weather){
+  switch(weather){
+   case'cloudy':return'rgba(120,130,140,.18)';
+   case'rain':return'rgba(40,55,70,.30)';
+   case'snow':return'rgba(210,225,240,.16)';
+   default:return'rgba(0,0,0,0)';
+  }
+ }
+ _spawnParticle(kind){
+  const p=document.createElement('div');
+  p.className=kind==='snow'?'weatherSnowflake':'weatherRaindrop';
+  p.style.left=(Math.random()*100)+'vw';
+  p.style.animationDuration=(kind==='snow'?(6+Math.random()*4):(0.7+Math.random()*.4))+'s';
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),kind==='snow'?11000:1400);
+ }
+ update(dt){
+  WeatherManager.update(dt);
+  const w=WeatherManager.get();
+
+  if(w!==this.lastWeather){
+   this.lastWeather=w;
+   const overlay=document.getElementById('weatherOverlay');
+   if(overlay)Engine.Renderer.set(overlay,{backgroundColor:this._tintFor(w)});
+  }
+
+  // The fog we already had is always faintly present for atmosphere —
+  // weather just turns it way up when it's actually foggy out.
+  const fog=document.querySelector('.lagoonFog');
+  if(fog)Engine.Renderer.set(fog,{opacity:w==='fog'?.62:.16});
+
+  if(w==='rain'||w==='snow'){
+   this.particleTimer+=dt;
+   const every=w==='snow'?0.35:0.09;
+   if(this.particleTimer>=every){
+    this.particleTimer=0;
+    this._spawnParticle(w);
+   }
+  }
+ }
+}
+
+/* =====================================================================
+   BUILD1534 — NPC CONDITIONS
+   The area manifest (WORLD_AREAS, see spawnWorldArea below) can now
+   give an NPC an optional `active` rule, e.g.:
+     active:{weather:['clear','cloudy','fog']}   // hides during rain/snow
+     active:{season:'winter', time:'night'}
+   ConditionManager is the only thing that knows how to evaluate a
+   rule — it just reads WorldClock/WeatherManager, nothing new. A
+   single ConditionalVisibilityDirector applies the result to whatever
+   entities opted in via getVisibilityElements(). NPC classes
+   themselves never need to know conditions exist at all.
+   ===================================================================== */
+const ConditionManager={
+ check(rule){
+  if(!rule)return true;
+  if(rule.season){
+   const seasons=Array.isArray(rule.season)?rule.season:[rule.season];
+   if(!seasons.includes(WorldClock.getSeason()))return false;
+  }
+  if(rule.weather){
+   const weathers=Array.isArray(rule.weather)?rule.weather:[rule.weather];
+   if(!weathers.includes(WeatherManager.get()))return false;
+  }
+  if(rule.time){
+   const phases=Array.isArray(rule.time)?rule.time:[rule.time];
+   if(!phases.includes(WorldClock.getPhase()))return false;
+  }
+  if(rule.area){
+   const areas=Array.isArray(rule.area)?rule.area:[rule.area];
+   const current=(typeof AreaManager!=='undefined')?AreaManager.current:null;
+   if(!areas.includes(current))return false;
+  }
+  return true;
+ }
+};
+
+// Populated by spawnWorldArea() below — {rule, entity} pairs for every
+// NPC that was given an `active` condition in the manifest.
+const CONDITIONED_NPCS=[];
+
+class ConditionalVisibilityDirector extends BaseEntity{
+ constructor(){super();this.timer=0;}
+ update(dt){
+  this.timer+=dt;
+  if(this.timer<2)return; // re-checking every frame would be wasted work — every 2s is plenty
+  this.timer=0;
+  for(const c of CONDITIONED_NPCS){
+   const shouldShow=ConditionManager.check(c.rule);
+   for(const el of c.entity.getVisibilityElements()){
+    if(el)el.style.display=shouldShow?'':'none';
+   }
+  }
+ }
+}
+
+/* ========= HERRING SCHOOL — Hidden Cove =========
+   The last new mechanic before the demo, per the brief: 20-30 small
+   fry that read as one living school. No real boid AI — a single
+   wandering "center" plus small per-fish orbit offsets keeps them
+   cohesive and turning together automatically. scatter() gives an
+   actual reason for them to spread out (hooked into AreaManager.scan()
+   below) instead of just breathing in and out on a timer forever.
+   Same shape as every other NPC here: constructor, update(dt),
+   getVisibilityElements(). Condition-gated to Hidden Cove only via the
+   same ConditionManager/ConditionalVisibilityDirector everything else
+   uses — ✅ no special-case visibility code needed for this one either. */
+class HerringSchoolEntity extends BaseEntity{
+ constructor(count){
+  super();
+  this.count=count||26;
+  this.fish=[];
+  this.t=0;
+  this.scatterUntil=0;
+  this.idleTimer=0;
+  this.curiosity=0; // 0 = normal spread, eases toward 1 = drifted a bit closer after being idle
+  const layer=document.getElementById('areaView')||document.body;
+  for(let i=0;i<this.count;i++){
+   const el=document.createElement('img');
+   el.className='herringFry';
+   el.src=['masgang/sillvanster.png','masgang/sillhoger.png','masgang/sillglitter.png'][i%3];
+   el.alt='Sill';
+   el.style.position='fixed';
+   layer.appendChild(el);
+   this.fish.push({
+    el,
+    angle:Math.random()*Math.PI*2,
+    baseRadius:12+Math.random()*38,
+    speed:.5+Math.random()*.5,
+    bobOffset:Math.random()*10,
+    flipAt:0
+   });
+  }
+ }
+ /** A reason for the school to spread out — called from AreaManager.scan()
+     while in Hidden Cove, so it reads as the fish reacting to the player
+     instead of just idly pulsing on its own. Also counts as "the player
+     did something", which resets the curious-idle drift below. */
+ scatter(){
+  this.scatterUntil=performance.now()+2200;
+  this.idleTimer=0;
+ }
+ update(dt){
+  if(typeof AreaManager==='undefined'||AreaManager.current!=='hiddencove')return;
+  this.t+=dt;
+  const cx=(0.5+Math.sin(this.t*0.08)*0.16)*window.innerWidth;
+  // Kept in the upper third of the screen on purpose — the Scan/Search/
+  // Return buttons live in the bottom panel, and fish (position:fixed)
+  // would otherwise paint over them regardless of z-index.
+  const cy=(0.24+Math.cos(this.t*0.06)*0.06)*window.innerHeight;
+  const scattered=performance.now()<this.scatterUntil;
+
+  // Curious idle drift: if nothing's happened in a while, the school
+  // slowly eases a bit closer/tighter, as if curious. Any scan snaps
+  // it back out immediately via scatter() above.
+  if(!scattered){
+   this.idleTimer+=dt;
+   const targetCuriosity=this.idleTimer>8?1:0;
+   this.curiosity+=(targetCuriosity-this.curiosity)*Math.min(1,dt*0.4);
+  }
+  const curiousPull=1-this.curiosity*0.3; // up to 30% tighter while curious
+  const spread=(scattered?2.1:1)*curiousPull;
+
+  this.fish.forEach(f=>{
+   f.angle+=f.speed*dt*(scattered?0.9:0.35); // they also swim faster while startled
+   const r=f.baseRadius*spread;
+   const x=cx+Math.cos(f.angle)*r;
+   const y=cy+Math.sin(f.angle)*r*0.5+Math.sin(this.t*2+f.bobOffset)*4;
+   const facingLeft=Math.cos(f.angle+0.05)<Math.cos(f.angle);
+   Engine.Renderer.set(f.el,{left:x+'px',top:y+'px',transform:facingLeft?'scaleX(-1)':'scaleX(1)'});
+  });
+ }
+ getVisibilityElements(){return this.fish.map(f=>f.el);}
+}
+
+class WorldFlavorDirector extends BaseEntity{
+ constructor(){
+  super();
+  this.timer=0;
+  this.messages=[
+   '🌊 A school of mackerel rushed through Hidden Cove.',
+   ' Cranky Krabbe found fresh seaweed.',
+   '🐦 Steve stole fries from the pier.',
+   '📻 Shelter Radio picked up a mysterious transmission.',
+   '🦭 Seal Sven chased gulls away from the beach.',
+   '🐟 Herring school moved into Hidden Cove.',
+   '🌍 A quiet breeze drifts across the lagoon.',
+   ' Cranky Krabbe is guarding a shell.',
+   '🌊 Tide is rising around the lagoon.',
+   '🪶 Steve found a feather worth bragging about.',
+   '🐦 A flock of gulls followed Steve across the lagoon.'
+  ];
+ }
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+  this.timer+=dt;
+  if(this.timer<12)return;
+  this.timer=0;
+  const m=this.messages[Math.floor(Math.random()*this.messages.length)];
+  Game.get('journal')?.add(m);
+ }
+}
+
+class BehaviourDirector extends BaseEntity{
+ constructor(){super();this.t=0;this.activities=['Searching for fish','Watching the tide','Stealing snacks','Listening to radio','Taking a nap'];}
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+   this.t+=dt;
+   if(this.t<8)return;
+   this.t=0;
+   const npcs=Game.state.world?.npcs;
+   if(!npcs)return;
+   Object.values(npcs).forEach(n=>{n.activity=this.activities[Math.floor(Math.random()*this.activities.length)];});
+   if(window.AreaManager && AreaManager.current){
+      Engine.Renderer.enqueue(()=>AreaManager.renderNPCs());
+   }
+ }
+}
+
+/* ========= WORLD: Steve controller + sprite animator ========= */
+const STEVE_ANIMS={
+ idle:{cols:6,rows:1,fps:5}, walk:{cols:8,rows:1,fps:8}, takeoff:{cols:8,rows:1,fps:10},
+ fly:{cols:8,rows:2,fps:10}, glide:{cols:5,rows:1,fps:7}, land:{cols:6,rows:1,fps:9},
+ steals:{cols:10,rows:1,fps:10}, eating:{cols:9,rows:1,fps:6}
+};
+
+class SpriteSheetAnimator{
+ constructor(canvas,label='Sprite'){
+   this.canvas=canvas; this.ctx=canvas.getContext('2d'); this.img=new Image();
+   this.label=label; this.frame=0; this.cols=1; this.rows=1; this.fps=8; this.acc=0;
+   this.flip=false; this.scale=1.0; this.smoothing=false; this.ready=false; this.failed=false;
+ }
+ setSheet(src,cols=8,rows=1,fps=8){
+   const key=Array.isArray(src)?src.join('|'):src;
+   if(key===this._lastKey && (this.ready||this.failed)){
+     this.fps=fps;
+     if(!this._forcedFlat){this.cols=cols;this.rows=rows;}
+     return;
+   }
+   this._lastKey=key; this._forcedFlat=false;
+   this.cols=cols; this.rows=rows; this.fps=fps; this.frame=0; this.ready=false; this.failed=false;
+   Engine.AssetManager.resolveImage(src,this.label,(img,path)=>{
+     if(!img){this.failed=true;return;}
+     this.img=img; this.resolvedSrc=path;
+     const fw=Math.floor(img.naturalWidth/this.cols);
+     const fh=Math.floor(img.naturalHeight/this.rows);
+     if(fw<16||fh<16){this.cols=1;this.rows=1;this._forcedFlat=true;}
+     this.ready=true;
+   });
+ }
+ update(dt){
+   if(this.failed){
+     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+     this.ctx.fillStyle='rgba(255,0,0,.25)'; this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+     this.ctx.fillStyle='#fff'; this.ctx.font='11px monospace'; this.ctx.fillText(this.label+': image 404',4,14);
+     return;
+   }
+   if(!this.ready || !this.img.complete || !this.img.naturalWidth) return;
+   this.acc+=dt;
+   if(this.acc>1/this.fps){this.acc=0;this.frame=(this.frame+1)%(this.cols*this.rows);}
+   const fw=Math.floor(this.img.naturalWidth/this.cols);
+   const fh=Math.floor(this.img.naturalHeight/this.rows);
+   const cx=(this.frame%this.cols)*fw;
+   const cy=Math.floor(this.frame/this.cols)*fh;
+   this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+   this.ctx.imageSmoothingEnabled=this.smoothing;
+   this.ctx.save();
+   if(this.flip){this.ctx.translate(this.canvas.width,0);this.ctx.scale(-1,1);}
+   const w=fw*this.scale; const h=fh*this.scale;
+   try{ this.ctx.drawImage(this.img,cx,cy,fw,fh,(this.canvas.width-w)/2,(this.canvas.height-h)/2,w,h); }
+   catch(e){ this.ctx.fillStyle='red'; this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height); this.ctx.fillStyle='white'; this.ctx.font='16px monospace'; this.ctx.fillText(e.message,10,30); }
+   this.ctx.restore();
+ }
+}
+
+// One controller, state-driven, shared by AI + scanner. Exactly one
+// instance, one state, one place that touches Steve's element/canvas.
+class SteveController extends BaseEntity{
+ constructor(layer){
+  super();
+  this.layer=layer;
+  const steveCandidates=STEVE_SPRITE_CANDIDATES;
+  this.sprites={idle:steveCandidates,walk:steveCandidates,takeoff:steveCandidates,fly:steveCandidates,glide:steveCandidates,land:steveCandidates,steals:steveCandidates,eating:steveCandidates};
+  this.durations={idle:[2,4],walk:[2,4],takeoff:[0.8,0.8],fly:[6,10],glide:[1.2,1.2],land:[0.6,0.6],steals:[2,2],eating:[2.5,2.5]};
+  this.places=['Old Pier','Hidden Cove','Punk Dunes','Lost Lighthouse'];
+  this.place='Old Pier';
+  this.x=window.innerWidth*0.15; this.y=window.innerHeight*0.55; this.t=0; this.walkDir=1;
+  this.img=document.getElementById('steveSprite')||this.createSprite();
+  this.canvas=document.getElementById('steveCanvas');
+  this.animator=null;
+  this.setState('idle');
+ }
+ createSprite(){
+  const img=document.createElement('img');
+  img.id='steveSprite';
+  Object.assign(img.style,{display:'none',position:'fixed',left:this.x+'px',top:this.y+'px',width:'220px',zIndex:'860'});
+  this.layer.appendChild(img);
+  return img;
+ }
+ setState(name){
+  if(!this.sprites[name])return;
+  this.state=name;
+  const candidates=this.sprites[name];
+  this.img.src=Array.isArray(candidates)?candidates[0]:candidates;
+  this.img.classList.toggle('steveFlying',name==='fly'||name==='glide');
+  this.stateTimer=0;
+  const [min,max]=this.durations[name];
+  this.stateDuration=min+Math.random()*(max-min);
+ }
+ nextState(){
+  switch(this.state){
+   case 'idle':    this.setState(Math.random()<0.5?'walk':'takeoff'); break;
+   case 'walk':    this.setState(Math.random()<0.6?'takeoff':'idle'); break;
+   case 'takeoff': this.setState('fly'); break;
+   case 'fly':     this.setState('glide'); break;
+   case 'glide':   this.setState('land'); break;
+   case 'land':
+     this.place=this.places[Math.floor(Math.random()*this.places.length)];
+     if(window.Game && Game.state) Game.state.steveLocation=this.place;
+     this.setState(Math.random()<0.5?'steals':'eating');
+     break;
+   case 'steals':  this.setState('idle'); break;
+   case 'eating':  this.setState('idle'); break;
+   default:        this.setState('idle');
+  }
+ }
+ update(dt){
+   if(Game.state.homeWorldPaused)return;
+  this.stateTimer+=dt; this.t+=dt;
+  if(this.state==='fly'){
+   this.x+=140*dt;
+   if(this.x>window.innerWidth+180)this.x=-180;
+   this.y=120+Math.sin(this.t*2.1)*45+Math.cos(this.t*0.7)*18;
+  }else if(this.state==='glide'){
+   this.x+=60*dt;
+   this.y+=(420-this.y)*Math.min(1,dt*1.5);
+  }else if(this.state==='takeoff'){
+   this.y-=40*dt;
+  }else if(this.state==='walk'){
+   this.x+=24*dt*this.walkDir;
+   if(Math.random()<0.02)this.walkDir*=-1;
+  }
+  Engine.Renderer.set(this.img,{display:'block',left:this.x+'px',top:this.y+'px'});
+  const sh=document.getElementById('steveCanvasShadow');
+  if(sh)Engine.Renderer.set(sh,{left:(this.x+70)+'px',top:(this.y+180)+'px'});
+  if(this.stateTimer>=this.stateDuration)this.nextState();
+  this.updateScanner();
+ }
+ updateScanner(){
+  const flying=this.state==='fly'||this.state==='glide'||this.state==='takeoff';
+  const dist=flying?Math.max(8,Math.round((window.innerWidth-this.x)/6)):0;
+  const fill=flying?Math.max(8,Math.min(100,100-dist/2)):92;
+  const d=document.getElementById('scannerDist');
+  const f=document.getElementById('scannerFill');
+  const tgt=document.getElementById('scannerTarget');
+  const st=document.getElementById('scannerState');
+  const txt='Distance: '+dist+' m';
+  const tgtTxt='Target: STEVE @ '+(Game.state?.steveLocation||this.place);
+  const stTxt='State: '+this.state.toUpperCase();
+  if(d)Engine.Renderer.set(d,{text:txt});
+  if(f)Engine.Renderer.set(f,{width:fill+'%'});
+  if(tgt)Engine.Renderer.set(tgt,{text:tgtTxt});
+  if(st)Engine.Renderer.set(st,{text:stTxt});
+  // Mirror onto the Radio tab's Scanner card too (same data, second view).
+  const rd=document.getElementById('radioScanDist');
+  const rt=document.getElementById('radioScanTarget');
+  const rs=document.getElementById('radioScanState');
+  if(rd)Engine.Renderer.set(rd,{text:txt});
+  if(rt)Engine.Renderer.set(rt,{text:tgtTxt});
+  if(rs)Engine.Renderer.set(rs,{text:stTxt});
+ }
+ onClick(){
+  const speech=document.getElementById('steveSpeech');
+  if(speech){
+   speech.style.left=(this.x-20)+'px';
+   speech.style.top=(this.y-20)+'px';
+   speech.textContent=['MINE!','🍟','CAW!','Mackerel!'][Math.floor(Math.random()*4)];
+   speech.style.display='block';
+   setTimeout(()=>speech.style.display='none',1500);
+  }
+  if(navigator.vibrate)navigator.vibrate(40);
+  if(this.state==='idle'||this.state==='walk')this.setState('steals');
+ }
+}
+
+/* ========= HOME ========= */
+function applyTheme(){
+ const themes={
+  'Beach Cat':'linear-gradient(180deg,#2196f3,#0d47a1)',
+  'Punk Cat':'linear-gradient(180deg,#333,#000)',
+  'Golf Cat':'linear-gradient(180deg,#4caf50,#1b5e20)',
+  'Desert Dave':'linear-gradient(180deg,#c49a6c,#8d6e63)'
+ };
+ document.body.style.background=themes[Game.state.player.activeCat]||'#071629'
+}
+
+function applyCharacterGlow(){
+ const colors={
+  'Beach Cat':{border:'#ff4fa3'}, 'Punk Cat':{border:'#ff00ff'},
+  'Golf Cat':{border:'#7cff4d'}, 'Desert Dave':{border:'#ff9d2e'}
+ };
+ const cfg=colors[Game.state.player.activeCat];
+ if(cfg){
+  const mascot=document.getElementById('activeMascot');
+  if(mascot){mascot.style.filter=`drop-shadow(0 0 12px ${cfg.border}) drop-shadow(0 0 24px ${cfg.border}) drop-shadow(0 0 48px ${cfg.border})`}
+ }
+}
+
+function setCat(name,el){
+ if(!Game.state.player)Game.state.player={};
+ Game.state.player.activeCat=name;
+ Game.get('save').save();
+ document.querySelectorAll('.cat').forEach(x=>x.classList.remove('sel'));
+ if(el)el.classList.add('sel');
+ renderHome();
+ applyTheme();
+ applyCharacterGlow();
+ window.HL_catAnimator?.setSkin();
+}
+
+// Single render function for the entire Home tab: hero, continue,
+// quest, scanner counters, steve activity, latest discovery.
+function renderHome(){
+ const p=Game.state.player||{};
+ const lvl=Math.floor((p.xp||0)/100)+1;
+ const heroMap={'Beach Cat':'beachcat.jpg','Punk Cat':'punkcat.jpg','Golf Cat':'golfcat.jpg','Desert Dave':'desertdave.jpg'};
+
+ const heroLevel=document.getElementById('heroLevel'); if(heroLevel)heroLevel.textContent=lvl;
+ const heroRescues=document.getElementById('heroRescues'); if(heroRescues)heroRescues.textContent=p.rescues||0;
+ const heroImg=document.getElementById('heroImg'); if(heroImg){heroImg.src=heroMap[p.activeCat]||heroMap['Golf Cat'];}
+ const heroName=document.getElementById('heroOverlayName'); if(heroName)heroName.textContent=(p.activeCat||'Golf Cat').toUpperCase();
+ window.HL_catAnimator?.setSkin();
+
+ // Continue: jump back into the last visited area, or suggest Old Pier.
+ const visited=Game.state.world?.visitedAreas||[];
+ const lastKey=visited.length?visited[visited.length-1]:'oldpier';
+ const lastCfg=Engine.AreaAssets[lastKey]||Engine.AreaAssets.oldpier;
+ const continueText=document.getElementById('continueText');
+ if(continueText)continueText.textContent=visited.length
+   ? ('Pick up where you left off at '+lastCfg.emoji+' '+lastCfg.name+'.')
+   : 'Start exploring the lagoon at '+lastCfg.emoji+' '+lastCfg.name+'.';
+ const continueBtn=document.getElementById('continueBtn');
+ if(continueBtn)continueBtn.dataset.area=lastCfg.key;
+
+ // Quest: visit every area.
+ const totalAreas=Object.keys(Engine.AreaAssets).length;
+ const questBar=document.getElementById('questBar');
+ const questProgressText=document.getElementById('questProgressText');
+ if(questBar)questBar.style.width=Math.round(visited.length/totalAreas*100)+'%';
+ if(questProgressText)questProgressText.textContent=visited.length+' / '+totalAreas+' areas';
+
+ // Scanner counters.
+ const demoScans=document.getElementById('demoScans'); if(demoScans)demoScans.textContent=Game.state.demo?.scans||0;
+ const demoCards=document.getElementById('demoCards'); if(demoCards)demoCards.textContent=(Game.state.collection?.owned||[]).length;
+ const demoCardsTotal=document.getElementById('demoCardsTotal'); if(demoCardsTotal)demoCardsTotal.textContent=CARD_DATABASE.length;
+
+ // Steve activity.
+ const steve=Game.state.world?.npcs?.steve;
+ const steveActivityText=document.getElementById('steveActivityText');
+ if(steveActivityText&&steve)steveActivityText.innerHTML='<b>'+steve.currentLocation+'</b> — '+steve.activity+' <br>Mood: '+steve.mood;
+
+ // Latest discovery: most recent journal entry.
+ const latest=Game.state.journal&&Game.state.journal.length?Game.state.journal[Game.state.journal.length-1]:'🐟 A shimmering herring school has appeared near Old Pier. Scan the area!';
+ const latestDiscoveryText=document.getElementById('latestDiscoveryText');
+ if(latestDiscoveryText)latestDiscoveryText.textContent=latest;
+}
+
+function continueGame(){
+ const btn=document.getElementById('continueBtn');
+ const key=btn?.dataset.area||'oldpier';
+ Game.get('ui').showTab('explore');
+ AreaManager.enter(key);
+}
+
+function dailyDiscovery(){
+ const msgs=['🐦 Steve dropped a mysterious feather.','📻 Strange radio burst detected.','🐱 Feline Signal intensity increased.',' Krabban reluctantly approved one shell.','📦 A dusty booster washed ashore.'];
+ const t=msgs[Math.floor(Math.random()*msgs.length)];
+ Game.get('xp').add(15);
+ Game.get('journal').add('🌊 '+t);
+ renderHome();
+}
+
+/* ========= COLLECTION ========= */
+const CARD_DATABASE=[
+ {id:'steve',name:'Seagull Steve',img:['assets/09_steve.jpg']},
+ {id:'sam',name:'Signal Sam',img:['assets/signalsam.png']},
+ {id:'wavey',name:'Wavey Walter',img:['waveywalter.jpg','waveywalter.png']},
+ {id:'beach',name:'Beach Cat',img:['beachcat.jpg','frilagdbeachkatt.png']},
+ {id:'golf',name:'Golf Cat',img:['golfcat.jpg','frilagdgolfkatt.png']},
+ {id:'punk',name:'Punk Cat',img:['punkcat.jpg','frilagdpunkkatt.png']},
+ {id:'dave',name:'Desert Dave',img:['desertdave.jpg','frilagddesertdave.png']},
+ {id:'cosmo',name:'Cosmo Claws',img:['cosmoclaws.jpg','cosmoclaws.png']},
+ {id:'wincent',name:'Wincent',img:['wincent.jpg','wincent.png']},
+ {id:'bandit',name:'Snack Bandit',img:['assets/snack_bandit.png']}
+];
+
+function randomLockedCard(){
+ const owned=Game.state.collection.owned;
+ const left=CARD_DATABASE.filter(c=>!owned.includes(c.id));
+ if(left.length===0)return null;
+ return left[Math.floor(Math.random()*left.length)];
+}
+
+// Single render function for the Collection tab: progress + album grid.
+// No list, no debug, no legacy "Collected Cards" text block.
+function albumImgFallback(img){
+ const ph=document.createElement('div');
+ ph.style.cssText='width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:56px';
+ ph.textContent='🐾';
+ img.replaceWith(ph);
+}
+
+function renderCollection(){
+const npcCards=[
+{name:'SEAGULL STEVE',img:'assets/09_steve.jpg',owned:true},
+{name:'SIGNAL SAM',img:'assets/signalsam.png',owned:true},
+{name:'SNACK BANDIT',img:'assets/snack_bandit.png',owned:true},
+{name:'OCTO OLLE',img:'octoolle/octoolle.png',owned:true},
+{name:'SEAL SVEN',img:'sealsven/seal_sven_cool.png',owned:true},
+{name:'KRABBAN',img:'krabba/krabban_arg.png',owned:true},
+{name:'MACKE MAKRILL',img:'makrill/makrill_glad.png',owned:(Game.state.collection.owned||[]).includes('mackerel')}
+];
+const catCards=[
+{name:'Wavey Walter',img:'waveywalter.jpg'},
+{name:'Beach Cat',img:'beachcat.jpg'},
+{name:'Golf Cat',img:'golfcat.jpg'},
+{name:'Punk Cat',img:'punkcat.jpg'},
+{name:'Desert Dave',img:'desertdave.jpg'},
+{name:'Cosmo Claws',img:'cosmoclaws.jpg'},
+{name:'Wincent',img:'wincent.jpg'}
+];
+const grid=document.getElementById("albumGrid");
+if(!grid)return;
+grid.innerHTML="<h2 style='grid-column:1/-1'>🌊 Lagoon Crew</h2>";
+npcCards.forEach(c=>{
+ if(c.owned){
+  grid.innerHTML+=`<div class="albumSlot owned"><div class="albumMedia"><img src="${c.img}" onerror="albumImgFallback(this)"></div><div class="albumName">${c.name}</div></div>`;
+ }else{
+  grid.innerHTML+=`<div class="albumSlot locked"><div class="albumMedia" style="font-size:56px">❓</div><div class="albumName">${c.name}</div></div>`;
+ }
+});
+grid.innerHTML+="<h2 style='grid-column:1/-1;margin-top:12px'>🐱 Rescue Cats</h2>";
+catCards.forEach(c=>{
+grid.innerHTML+=`<div class="albumSlot locked"><div class="albumMedia" style="font-size:56px">❓</div><div class="albumName">${c.name}</div></div>`;
+});
+}
+
+/* ========= EXPLORE ========= */
+// Single render function, built entirely from Engine.AreaAssets — no
+// duplicated per-area markup anywhere else in the file.
+function renderExplore(){
+ const grid=document.getElementById('exploreGrid');
+ if(!grid)return;
+ grid.innerHTML='';
+ Object.values(Engine.AreaAssets).forEach(cfg=>{
+   const card=document.createElement('div');
+   card.className='posterCard';
+   const img=document.createElement('img');
+   img.style.background='#345';
+   Engine.AssetManager.resolveImage(cfg.backgrounds,cfg.name+' poster',(loaded,path)=>{
+      if(path){img.src=path;}
+      else{img.removeAttribute('src');}
+   });
+   const info=document.createElement('div');
+   info.className='posterInfo';
+   info.innerHTML='<h2>'+cfg.emoji+' '+cfg.name+'</h2><button>ENTER AREA →</button>';
+   info.querySelector('button').onclick=()=>AreaManager.enter(cfg.key);
+   card.appendChild(img);
+   card.appendChild(info);
+   grid.appendChild(card);
+ });
+}
+
+/* ========= RADIO ========= */
+function renderRadio(){
+ const steve=Game.state.world?.npcs?.steve;
+ const s=document.getElementById('steveStatus');
+ if(s&&steve)s.innerHTML='<b>'+steve.currentLocation+'</b><br>Mood: '+steve.mood;
+}
+
+/* ========= SCANNER LOOP (Home) =========
+   Scan -> Weak Signal / Steve Feather / Hidden Cache / Card.
+   This is the Home-tab half of the demo loop; AreaManager.search()
+   above is the Explore-tab half (loot tied to the current area). Both
+   feed the same XP/Inventory/Collection/Journal managers. */
+function demoScan(){
+ AudioManager.play('scan');
+ window.HL_catAnimator?.play('scan');
+ Game.state.demo=Game.state.demo||{scans:0};
+ Game.state.demo.scans++;
+
+ const roll=Math.random();
+ let result;
+ if(roll<0.45){
+  result={label:'📡 Weak Signal',xp:5};
+ }else if(roll<0.75){
+  result={label:'🪶 Steve\'s Feather found',xp:15};
+  Game.get('inventory').add('feather',1);
+  AudioManager.play('found');
+ }else if(roll<0.93){
+  result={label:'📦 Hidden Cache found',xp:25};
+  Game.get('inventory').add('cache',1);
+  AudioManager.play('found');
+ }else{
+  const c=randomLockedCard();
+  if(c){
+   Game.state.collection.owned.push(c.id);
+   result={label:'🃏 Card unlocked: '+c.name,xp:30};
+  }else{
+   result={label:'🏆 Album Complete!',xp:30};
+  }
+  AudioManager.play('unlock');
+ }
+
+ Game.get('xp').add(result.xp);
+ Game.get('journal').add(result.label+' (+'+result.xp+' XP)');
+ Game.get('save').save();
+ showToast(result.label);
+ renderHome();
+ statPop('demoScans');
+ statPop('demoCards');
+}
+
+function statPop(id){
+ const el=document.getElementById(id);
+ if(!el)return;
+ el.classList.remove('statPop');
+ void el.offsetWidth; // restart the animation even if it's already mid-pop
+ el.classList.add('statPop');
+}
+
+function showToast(msg){
+ const t=document.getElementById('hlToast');
+ if(!t)return;
+ t.textContent=msg;
+ t.classList.add('show');
+ clearTimeout(showToast._timer);
+ showToast._timer=setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+function openCatPack(){
+ const o=document.getElementById('packFx');
+ o.style.display='flex';
+ setTimeout(()=>{
+   o.style.display='none';
+   const c=randomLockedCard();
+   if(!c){showToast('🏆 Album Complete!');return;}
+   Game.state.collection.owned.push(c.id);
+   Game.get('save').save();
+   renderHome();
+   showToast('🃏 New card unlocked: '+c.name+'\n\nCollected: '+Game.state.collection.owned.length+'/'+CARD_DATABASE.length);
+ },2300);
+}
+
+/* ========= EVENTS ========= */
+document.addEventListener('engine:init',()=>{
+ Engine.AssetManager.preload(['beachcat.jpg','punkcat.jpg','golfcat.jpg','desertdave.jpg']);
+ Engine.AssetManager.preload(['assets/09_steve.jpg']);
+
+ Game.state=JSON.parse(localStorage.getItem(KEY)||'{}');
+ Game.state.player=Game.state.player||{};
+ Game.state.collection=Game.state.collection||{owned:[]};
+ Game.state.demo=Game.state.demo||{scans:0};
+ Game.state.player.xp=Game.state.player.xp||0;
+ Game.state.player.activeCat=Game.state.player.activeCat||'Golf Cat';
+ Game.state.player.rescues=Game.state.player.rescues||0;
+ Game.state.journal=Game.state.journal||[];
+ Game.state.steveLocation=Game.state.steveLocation||'Old Pier';
+
+ Game.get('save').migrate();
+ Game.get('npc').migrate();
+
+ Engine.EntityManager.registerNPC('snackBandit','Snack Bandit');
+ Engine.EntityManager.registerNPC('sealSven','Seal Sven');
+ Engine.EntityManager.registerNPC('crankyKrabbe','Cranky Krabbe');
+
+ renderHome();
+ renderExplore();
+ applyTheme();
+ applyCharacterGlow();
+ Game.get('radio').broadcast();
+
+ Engine.WorldLoop.start();
+
+ // NPC movement + mood + journal, once every ~20s.
+ Engine.EventManager.addInterval(()=>Game.get('npc').tick(),20000);
+
+ // Ambient decorations — large slow bubbles.
+ Engine.EventManager.addInterval(()=>{
+   const b=document.createElement('div');
+   b.className='waterBubble';
+   const s=8+Math.random()*70;
+   b.style.width=s+'px';b.style.height=s+'px';
+   b.style.left=(Math.random()*100)+'vw';
+   b.style.animationDuration=(8+Math.random()*10)+'s';
+   worldRoot().appendChild(b);
+   setTimeout(()=>b.remove(),20000)
+ },120);
+
+ // Ambient decorations — small fast bubbles.
+ Engine.EventManager.addInterval(()=>{
+   const b=document.createElement('div');
+   b.className='waterBubble';
+   const s=3+Math.random()*18;
+   b.style.width=s+'px'; b.style.height=s+'px';
+   b.style.left=(5+Math.random()*90)+'vw';
+   b.style.animationDuration=(5+Math.random()*5)+'s';
+   b.style.opacity=0.55+Math.random()*0.35;
+   worldRoot().appendChild(b);
+   setTimeout(()=>b.remove(),12000);
+ },70);
+
+ // Hidden Cove ambient — bubbles + drifting water particles, only while
+ // actually in that area. Reuses the same .waterBubble class as Home's
+ // ambient bubbles above; only the spawn condition and container differ.
+ Engine.EventManager.addInterval(()=>{
+   if(typeof AreaManager==='undefined'||AreaManager.current!=='hiddencove')return;
+   const b=document.createElement('div');
+   b.className='waterBubble';
+   const s=5+Math.random()*16;
+   b.style.width=s+'px';b.style.height=s+'px';
+   b.style.left=(10+Math.random()*80)+'vw';
+   b.style.animationDuration=(6+Math.random()*6)+'s';
+   const view=document.getElementById('areaView');
+   if(view)view.appendChild(b);
+   setTimeout(()=>b.remove(),13000);
+ },1400);
+ Engine.EventManager.addInterval(()=>{
+   if(typeof AreaManager==='undefined'||AreaManager.current!=='hiddencove')return;
+   const p=document.createElement('div');
+   p.className='waterParticle';
+   p.style.left=(Math.random()*100)+'vw';
+   p.style.top=(8+Math.random()*40)+'vh'; // upper portion only — stays clear of the button panel
+   p.style.animationDuration=(10+Math.random()*8)+'s';
+   const view=document.getElementById('areaView');
+   if(view)view.appendChild(p);
+   setTimeout(()=>p.remove(),19000);
+ },2200);
+
+ Engine.EventManager.addInterval(()=>{
+   const layer=document.getElementById('fishLayer');if(!layer)return;
+   if(layer.children.length>8)return;
+   const f=document.createElement('div');
+   f.className='lagoonFish';
+   f.textContent=Math.random()<0.5?'🐟':'🐠';
+   f.style.top=(120+Math.random()*(window.innerHeight-250))+'px';
+   f.style.animationDuration=(18+Math.random()*12)+'s';
+   layer.appendChild(f);
+   setTimeout(()=>f.remove(),32000)
+ },1800);
+
+ Engine.EventManager.addInterval(()=>{
+   const f=document.createElement('div');
+   f.className='firefly';
+   f.textContent='✨';
+   f.style.left=(Math.random()*100)+'vw';
+   f.style.top=(60+Math.random()*35)+'vh';
+   worldRoot().appendChild(f);
+   setTimeout(()=>f.remove(),10000)
+ },2200);
+
+ // Herring school
+ Engine.EventManager.addInterval(()=>{
+  const layer=document.getElementById('fishLayer');
+  if(!layer) return;
+  for(let i=0;i<6;i++){
+   const f=document.createElement('img');
+   f.className='lagoonFish schoolHerringAmbient';
+   f.src=['masgang/sillvanster.png','masgang/sillhoger.png','masgang/sillstim.png','masgang/sillglitter.png'][i%4];
+   f.alt='Sill';
+   f.style.width=(42+Math.random()*24)+'px';
+   f.style.height='auto';
+   f.style.top=(160+Math.random()*220)+'px';
+   f.style.left=(-80-i*24)+'px';
+   f.style.animationDuration=(12+Math.random()*4)+'s';
+   layer.appendChild(f);
+   setTimeout(()=>f.remove(),18000);
+  }
+ },9000);
+
+ Engine.EventManager.addInterval(()=>{
+  const j=document.createElement('div');
+  j.className='jellyNpc';
+  j.textContent='🪼';
+  j.style.left=(10+Math.random()*80)+'vw';
+  j.style.animationDuration=(18+Math.random()*12)+'s';
+  worldRoot().appendChild(j);
+  setTimeout(()=>j.remove(),32000);
+ },6000);
+
+ Engine.EventManager.addInterval(()=>{
+  const p=document.createElement('div');
+  p.className='plankton';
+  p.style.left=(Math.random()*100)+'vw';
+  p.style.animationDuration=(10+Math.random()*12)+'s';
+  worldRoot().appendChild(p);
+  setTimeout(()=>p.remove(),23000);
+ },180);
+
+ const fishLayer=document.createElement('div');
+ fishLayer.id='fishLayer';
+ worldRoot().appendChild(fishLayer);
+
+ /* =====================================================================
+    WORLD AREAS — data-driven NPC manifest.
+    Each area just lists which NPCs live there and where they start.
+    Adding a new area later (Punk Dunes, Hidden Cove, Lost Lighthouse)
+    means adding an entry here, not scattering more spawn calls through
+    the init code. NPC_FACTORIES is the one place that knows how to turn
+    a manifest entry into an actual entity — every NPC still follows the
+    same constructor/update(dt) shape as Steve, CrabEntity, Macke, etc.
+    (Steve keeps his own dedicated init below for now — his setup does
+    a few extra things, like the pocket-radar/POV-bubble wiring, that
+    don't fit this simple shape yet. Small, deliberate scope boundary,
+    not an oversight.)
+    ===================================================================== */
+ const WORLD_AREAS={
+  oldpier:{
+   npcs:[
+    {type:'crabs',layer:'crabLayer',active:{weather:['clear','cloudy','fog']}}, // crabs hide during rain/snow
+    {type:'mackerel',x:OLDPIER_WORLD_X-90,y:OLDPIER_WORLD_Y+140},
+    {type:'gulls'},
+    {type:'fishSchool'},
+    {type:'sealSven'}
+   ]
+  }
+ };
+ const NPC_FACTORIES={
+  crabs:(npc)=>new CrabEntity(document.getElementById(npc.layer)||worldRoot()),
+  mackerel:(npc)=>new MackerelEntity(npc.x,npc.y),
+  gulls:()=>new GullFlockEntity(),
+  sealSven:()=>new SealSvenEntity(),
+  fishSchool:()=>new FishSchoolEntity(fishLayer)
+ };
+ function spawnWorldArea(areaKey){
+  const area=WORLD_AREAS[areaKey];
+  if(!area)return;
+  for(const npc of area.npcs){
+   const factory=NPC_FACTORIES[npc.type];
+   if(!factory)continue;
+   const entity=factory(npc);
+   if(!entity)continue;
+   Engine.WorldManager.spawn(entity);
+   if(npc.active)CONDITIONED_NPCS.push({rule:npc.active,entity});
+  }
+ }
+ spawnWorldArea('oldpier');
+
+ Engine.WorldManager.spawn(new ConditionalVisibilityDirector());
+
+ const herringSchool=new HerringSchoolEntity(26);
+ Engine.WorldManager.spawn(herringSchool);
+ CONDITIONED_NPCS.push({rule:{area:'hiddencove'},entity:herringSchool});
+ window.HL_herringSchool=herringSchool;
+ Engine.WorldManager.spawn(new WorldClockEntity());
+ Engine.WorldManager.spawn(new WaveManager());
+ Engine.WorldManager.spawn(new LightingManager());
+ Engine.WorldManager.spawn(new WeatherEntity());
+ Engine.WorldManager.spawn(new TideManager());
+ Engine.WorldManager.spawn(new WorldFlavorDirector());
+ Engine.WorldManager.spawn(new BehaviourDirector());
+ Engine.__frameCount=0;
+ Engine.WorldLoop.register({update(){Engine.__frameCount++;}});
+
+ document.getElementById('pocketRadarBtn')?.addEventListener('click',()=>{
+   const hud=document.getElementById('scannerHud');
+   if(!hud)return;
+   hud.style.display=hud.style.display==='block'?'none':'block';
+ });
+
+ // Pocket radar hold -> POV bubble.
+ const radar=document.getElementById('pocketRadarBtn');
+ const pov=document.getElementById('povBubble');
+ if(radar&&pov){
+   radar.addEventListener('pointerdown',()=>pov.classList.add('active'));
+   ['pointerup','pointerleave','pointercancel'].forEach(ev=>radar.addEventListener(ev,()=>pov.classList.remove('active')));
+ }
+
+ // Steve spawn
+ const layer=document.getElementById('steveLayer');
+ if(layer){
+   const steve=new SteveController(layer);
+   window.SteveAI=steve;
+   steve.id='steve';
+   steve.place='Old Pier';
+   steve.x=window.innerWidth*0.18;
+   steve.y=window.innerHeight*0.42;
+   Engine.EntityManager.add(steve);
+   Engine.WorldManager.spawn(steve);
+   Engine.Events.emit('steve:ready',steve);
+   steve.img.addEventListener('click',()=>steve.onClick());
+   const c=document.getElementById('steveCanvas');
+   if(c)c.addEventListener('click',()=>steve.onClick());
+ }
+
+ // Snack Bandit — spawn + flight behaviour.
+ const bandit=document.createElement('img');
+ const banditCandidates=['assets/snack_bandit.png','snack_bandit.png'];
+ let bi=0;
+ const banditTryNext=()=>{
+   if(bi>=banditCandidates.length)return;
+   const p=banditCandidates[bi++];
+   bandit.onerror=()=>banditTryNext();
+   bandit.src=p;
+ };
+ banditTryNext();
+ bandit.style.cssText='position:fixed;right:-140px;top:180px;width:90px;z-index:8;pointer-events:none;opacity:0;transition:opacity .4s';
+ worldRoot().appendChild(bandit);
+ let banditActive=false,bx=innerWidth+120,by=180,banditTimer=0;
+ Engine.WorldLoop.register({
+   update(dt){
+     banditTimer+=dt;
+     if(!banditActive && banditTimer>8){
+       banditTimer=0; banditActive=true; bx=innerWidth+120; by=120+Math.random()*220;
+       Engine.Renderer.set(bandit,{opacity:'1',left:bx+'px',top:by+'px',transform:'scaleX(-1)'});
+     }
+     if(banditActive){
+       bx-=220*dt;
+       Engine.Renderer.set(bandit,{left:bx+'px'});
+       if(bx<-140){banditActive=false;Engine.Renderer.set(bandit,{opacity:'0'});}
+     }
+   }
+ });
+
+ // Octo Olle — spawn + idle flicker/bob.
+ const olle=document.createElement('div');
+ olle.id='octoOlleNpc';
+ olle.textContent='🐙';
+ olle.style.cssText='position:fixed;left:78%;top:72%;font-size:46px;opacity:.2;z-index:8;pointer-events:none';
+ worldRoot().appendChild(olle);
+ Engine.WorldLoop.register({
+   t:0,
+   update(dt){
+     this.t+=dt;
+     Engine.Renderer.set(olle,{opacity:(Math.sin(this.t*0.25)>0.92)?1:0.18,transform:'translateY('+Math.sin(this.t*2)*4+'px)'});
+   }
+ });
+
+ // Ambient scanner ping — only while inside an area, against that
+ // area's own NPCs/loot (via AreaManager.scan()).
+ Engine.EventManager.addInterval(()=>{
+   if(window.AreaManager && AreaManager.current) AreaManager.scan();
+ },4000);
+
+ // Grass
+ const grassLayer=document.createElement('div');
+ grassLayer.style.cssText='position:fixed;left:0;right:0;bottom:0;height:90px;pointer-events:none;z-index:4;';
+ worldRoot().appendChild(grassLayer);
+ const grassBlades=[];
+ for(let i=0;i<18;i++){
+   const g=document.createElement('div');
+   g.textContent='🌿';
+   g.style.cssText=`position:absolute;left:${i*6}%;bottom:${Math.random()*8}px;font-size:${22+Math.random()*12}px;opacity:.8;`;
+   grassLayer.appendChild(g);
+   grassBlades.push(g);
+ }
+ Engine.WorldLoop.register({
+   t:0,
+   update(dt){
+     this.t+=dt;
+     grassBlades.forEach((g,i)=>{
+       Engine.Renderer.set(g,{transform:`translateY(${Math.sin(this.t*2+i)*2}px) rotate(${Math.sin(this.t+i)*8}deg)`});
+     });
+   }
+ });
+
+ // Ecosystem HUD badge.
+ let eco=100;
+ const ecoBadge=document.createElement('div');
+ ecoBadge.id='ecosystemHud';
+ worldRoot().appendChild(ecoBadge);
+ function ecoUpdate(){
+   eco+=Math.random()*4-2; eco=Math.max(0,Math.min(100,eco));
+   Engine.Renderer.set(ecoBadge,{text:'🌿 Ecosystem: '+eco.toFixed(0)+'%'});
+ }
+ ecoUpdate();
+ Engine.EventManager.addInterval(ecoUpdate,5000);
+ Engine.EventManager.addInterval(()=>{Game.get('journal')?.add('🌿 Ecosystem shifted to '+eco.toFixed(0)+'%');},20000);
+
+ // Quiet ambient thought when idle.
+ let lastInput=Date.now();
+ const quietMsgs=['...det är skönt här.','...ingen frågar vem jag var.','...havet har alltid svar.'];
+ ['pointerdown','pointermove','keydown','touchstart'].forEach(e=>addEventListener(e,()=>lastInput=Date.now(),{passive:true}));
+ Engine.EventManager.addInterval(()=>{
+   if(Date.now()-lastInput>10000 && !document.getElementById('quietThought')){
+     Engine.Renderer.enqueue(()=>{
+       const d=document.createElement('div');
+       d.id='quietThought';
+       d.textContent=quietMsgs[Math.floor(Math.random()*quietMsgs.length)];
+       worldRoot().appendChild(d);
+       setTimeout(()=>d.remove(),3200);
+     });
+   }
+ },1000);
+
+ // Lagoon flavor toast.
+ const lagoonToast=document.getElementById('lagoonToast');
+ Engine.EventManager.addInterval(()=>{
+   if(Math.random()<0.45 && lagoonToast){
+     const msgs=['🦭 Sven jagar en fiskstim!',' Cranky Krabbe muttrar över måsarna.','🐦 Steve spanar efter pommes.','🐟 Makrillen byter riktning.'];
+     lagoonToast.textContent=msgs[Math.floor(Math.random()*msgs.length)];
+     lagoonToast.style.display='block';
+     setTimeout(()=>lagoonToast.style.display='none',2200);
+   }
+ },9000);
+
+ // Unified fish behaviour: leader highlight + Steve-proximity reaction.
+ const fishEls=[...document.querySelectorAll('.schoolFish,.schoolHerring,.lagoonFish')];
+ Engine.WorldLoop.register({
+   leader:0, timer:0,
+   update(dt){
+     this.timer+=dt;
+     if(this.timer>4){this.timer=0;this.leader=(this.leader+1)%Math.max(fishEls.length,1);}
+     const steve=window.SteveAI;
+     fishEls.forEach((f,i)=>{
+       Engine.Renderer.set(f,{filter:i===this.leader?'drop-shadow(0 0 6px rgba(120,255,255,.9))':''});
+       if(!steve) return;
+       const r=f.getBoundingClientRect();
+       const dx=r.left-steve.x, dy=r.top-steve.y;
+       const d=Math.hypot(dx,dy);
+       if(d<180){Engine.Renderer.set(f,{transform:`translate(${dx>0?16:-16}px,${(Math.random()-0.5)*8}px)`});}
+     });
+   }
+ });
+
+ // Mouse-repel for schooling fish.
+ document.addEventListener('mousemove',e=>{
+   document.querySelectorAll('.schoolFish,.schoolHerring').forEach(el=>{
+     const r=el.getBoundingClientRect();
+     const cx=r.left+r.width/2, cy=r.top+r.height/2;
+     const dx=cx-e.clientX, dy=cy-e.clientY;
+     const d=Math.hypot(dx,dy)||1;
+     if(d<140){el.style.transform=`translate(${dx/d*22}px,${dy/d*22}px)`;}
+     else{el.style.transform='';}
+   });
+ });
+
+ // Selfie Cam — crossfades through SELFIE_CAM_IMAGES (fixed list, see
+ // top of file). Two stacked <img> layers swap "active" so the fade
+ // never shows a blank frame; the hidden layer preloads the next photo.
+ (function initSelfieCam(){
+   const imgA=document.getElementById('selfieCamImgA');
+   const imgB=document.getElementById('selfieCamImgB');
+   if(!imgA||!imgB||!SELFIE_CAM_IMAGES.length)return;
+   let idx=0, showingA=true;
+   imgA.src=SELFIE_CAM_IMAGES[0];
+   imgA.classList.add('active');
+   if(SELFIE_CAM_IMAGES.length>1)imgB.src=SELFIE_CAM_IMAGES[1];
+   Engine.EventManager.addInterval(()=>{
+     if(SELFIE_CAM_IMAGES.length<2)return;
+     idx=(idx+1)%SELFIE_CAM_IMAGES.length;
+     const next=(idx+1)%SELFIE_CAM_IMAGES.length;
+     const incoming=showingA?imgB:imgA;
+     const outgoing=showingA?imgA:imgB;
+     incoming.classList.add('active');
+     outgoing.classList.remove('active');
+     showingA=!showingA;
+     setTimeout(()=>{outgoing.src=SELFIE_CAM_IMAGES[next];},SELFIE_CAM_FADE_MS);
+   },SELFIE_CAM_INTERVAL_MS);
+ })();
+});
+
+window.addEventListener('visibilitychange',()=>{
+ document.body.classList.toggle('game-paused',document.hidden)
+});
+
+document.addEventListener('keydown',e=>{
+ if(e.code==='KeyM'){Game.get('ui').showTab('home');}
+ if(e.code==='KeyE'){Game.get('ui').showTab('explore');}
+ if(e.key==='Escape' && window.AreaManager && AreaManager.current){AreaManager.leave();}
+});
+
+function enterOldPierFromWorld(){
+ Game.get('ui').showTab('explore');
+ AreaManager.enter('oldpier');
+ const prompt=document.getElementById('oldPierPrompt');
+ if(prompt)prompt.classList.remove('show');
+}
+
+/* =====================================================================
+   BUILD1524 — camera-follow world on the Home screen.
+   WASD/arrows on desktop, a virtual joystick on touch. The cat sprite
+   stays visually centered on screen; #worldCamera pans underneath it
+   instead. Scope on purpose: only the cat, the crabs (#crabLayer) and
+   the Old Pier landmark live inside this world for now. Fish, Steve,
+   jellyfish and bubbles are deliberately left exactly as they were —
+   still screen-fixed, unaffected by the camera — until this core
+   mechanic is confirmed to feel right. Movement is only active while
+   the Home tab is on screen and the world isn't paused
+   (Game.state.homeWorldPaused), same rule every other ambient entity
+   already follows.
+   ===================================================================== */
+(function initPlayerMovement(){
+ const cat=document.getElementById('activeMascot');
+ const joyBase=document.getElementById('joystickBase');
+ const joyKnob=document.getElementById('joystickKnob');
+ const worldCamera=document.getElementById('worldCamera');
+ const oldPierLandmark=document.getElementById('oldPierLandmark');
+ const oldPierPrompt=document.getElementById('oldPierPrompt');
+ if(!cat||!joyBase||!joyKnob||!worldCamera)return;
+ let nearOldPier=false;
+
+ // Place the Old Pier landmark at its fixed spot in world-space.
+ if(oldPierLandmark){
+  oldPierLandmark.style.left=(OLDPIER_WORLD_X-32)+'px';
+  oldPierLandmark.style.top=(OLDPIER_WORLD_Y-20)+'px';
+ }
+ const pierWaves=document.getElementById('pierWaves');
+ if(pierWaves){
+  pierWaves.style.left=(OLDPIER_WORLD_X-55)+'px';
+  pierWaves.style.top=(OLDPIER_WORLD_Y+95)+'px';
+ }
+
+ const SPEED=180; // px/sec, in world units
+ let worldX=WORLD_W/2, worldY=WORLD_H*0.6;
+ let camX=0, camY=0;
+ let lastDir='down';
+ const animator=new CatAnimator(cat);
+ window.HL_catAnimator=animator;
+
+ if('ontouchstart' in window || navigator.maxTouchPoints>0){
+  joyBase.classList.add('visible');
+ }
+
+ // ---- keyboard: hold-to-move, not one-shot per keypress ----
+ const MOVE_KEYS=['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'];
+ const keys={};
+ document.addEventListener('keydown',e=>{
+  const k=e.key.toLowerCase();
+  if(MOVE_KEYS.includes(k))keys[k]=true;
+ });
+ document.addEventListener('keyup',e=>{
+  keys[e.key.toLowerCase()]=false;
+ });
+
+ // ---- virtual joystick: mouse + touch via Pointer Events ----
+ let joyActive=false, joyDX=0, joyDY=0;
+ const JOY_MAX=34;
+ function moveJoy(e){
+  if(!joyActive)return;
+  const rect=joyBase.getBoundingClientRect();
+  const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+  let dx=e.clientX-cx, dy=e.clientY-cy;
+  const dist=Math.hypot(dx,dy)||1;
+  if(dist>JOY_MAX){dx=dx/dist*JOY_MAX;dy=dy/dist*JOY_MAX;}
+  joyKnob.style.transform=`translate(${dx}px,${dy}px)`;
+  joyDX=dx/JOY_MAX; joyDY=dy/JOY_MAX;
+ }
+ function joyEnd(){
+  joyActive=false; joyDX=0; joyDY=0;
+  joyKnob.style.transform='translate(0,0)';
+ }
+ joyBase.addEventListener('pointerdown',e=>{joyActive=true;moveJoy(e);});
+ window.addEventListener('pointermove',moveJoy);
+ window.addEventListener('pointerup',joyEnd);
+ window.addEventListener('pointercancel',joyEnd);
+
+ // ---- movement + camera loop ----
+ let last=performance.now();
+ function tick(now){
+  const dt=Math.min((now-last)/1000,.05);
+  last=now;
+
+  const exploreActive=document.getElementById('explore')?.classList.contains('active');
+  const paused=Game.state.homeWorldPaused;
+
+  if(exploreActive && !paused){
+   let dx=0,dy=0;
+   if(keys['w']||keys['arrowup'])dy-=1;
+   if(keys['s']||keys['arrowdown'])dy+=1;
+   if(keys['a']||keys['arrowleft'])dx-=1;
+   if(keys['d']||keys['arrowright'])dx+=1;
+   dx+=joyDX; dy+=joyDY;
+
+   const mag=Math.hypot(dx,dy);
+   const moving=mag>0.08;
+
+   if(moving){
+    const nx=dx/mag, ny=dy/mag;
+    worldX+=nx*SPEED*dt;
+    worldY+=ny*SPEED*dt;
+    lastDir=resolveCatDirection(dx,dy);
+   }
+
+   worldX=Math.max(20,Math.min(WORLD_W-20,worldX));
+   worldY=Math.max(20,Math.min(WORLD_H-20,worldY));
+
+   // Player's world position, exposed so ambient life (crabs, later
+   // fish/Steve) can react to how close the cat is.
+   window.HL_playerWorldPos=window.HL_playerWorldPos||{x:0,y:0};
+   window.HL_playerWorldPos.x=worldX;
+   window.HL_playerWorldPos.y=worldY;
+
+   // Player logic only ever reports what it's doing — CatAnimator is
+   // the only thing that ever touches the sprite's rendering.
+   if(moving)animator.setDirection(lastDir);
+   animator.setState(moving?'walk':'idle');
+   animator.update(dt,moving);
+
+   // Camera target: keep the cat centered, clamped to world edges.
+   // Deliberately separate from the animator above — the camera has no
+   // idea what animation is playing, and CatAnimator has no idea where
+   // the camera is. Swapping either one later shouldn't touch the other.
+   const vw=window.innerWidth, vh=window.innerHeight;
+   const targetCamX=(WORLD_W<=vw)?(vw-WORLD_W)/2:Math.max(vw-WORLD_W,Math.min(0,vw/2-worldX));
+   const targetCamY=(WORLD_H<=vh)?(vh-WORLD_H)/2:Math.max(vh-WORLD_H,Math.min(0,vh/2-worldY));
+   camX+=(targetCamX-camX)*Math.min(1,dt*6);
+   camY+=(targetCamY-camY)*Math.min(1,dt*6);
+   worldCamera.style.transform=`translate(${camX.toFixed(1)}px,${camY.toFixed(1)}px)`;
+
+   if(oldPierPrompt){
+    const dist=Math.hypot(worldX-OLDPIER_WORLD_X,worldY-OLDPIER_WORLD_Y);
+    nearOldPier=dist<130;
+    oldPierPrompt.classList.toggle('show',nearOldPier);
+   }
+  }else if(oldPierPrompt){
+   nearOldPier=false;
+   oldPierPrompt.classList.remove('show');
+  }
+
+  requestAnimationFrame(tick);
+ }
+ requestAnimationFrame(tick);
+
+ document.addEventListener('keydown',e=>{
+  if(e.key.toLowerCase()==='e' && nearOldPier)enterOldPierFromWorld();
+ });
+})();
+
+</script>
+
+
+<script>
+document.addEventListener('error',function(e){
+ const t=e.target;
+ if(t&&t.tagName==='IMG'&&!t.dataset.fallback){
+  t.dataset.fallback='1';
+  t.src='beachcat_idle.png';
+ }
+},true);
+</script>
+
+</body>
+</html>
